@@ -1,0 +1,27 @@
+#spring:
+#  thymeleaf:
+#    # 启用thymeleaf缓存（经测试:run模式下，不起作用，debug模式下缓存一直是关闭的）
+#    cache: true 
+#    # 检查模板是否存在，然后再呈现
+#    check-template-location: true
+#    servlet:
+#      # Content-Type
+#      content-type: text/html
+#    # 启用MVC Thymeleaf视图分辨率
+#    enabled: true
+#    encoding: UTF-8
+#    # 模板编码
+#    mode: HTML5
+#    # Thymeleaf模板前缀
+#    prefix: classpath:/templates/
+#    # 模板后缀
+#    suffix: .html
+#    # 链中模板解析器顺序
+#    template-resolver-order: 0
+#    # 可以解析的视图名称的逗号分隔列表
+#    view-names:
+#    # 应该从解决方案中排除的视图名称的逗号分隔列表
+#    excluded-view-names:
+#    #thymeleaf end
+  
+    

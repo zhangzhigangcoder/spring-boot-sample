@@ -1,0 +1,7 @@
+@ComponentScan 解析
+AnnotationConfigServletWebServerApplicationContext(<init>)
+——> AnnotatedBeanDefinitionReader(<init>)
+——> ConfigurationClassPostProcessor(postProcessBeanDefinitionRegistry)
+——>ConfigurationClassParser(doProcessConfigurationClass)
+——>ComponentScanAnnotationParser(parse)
+——>ClassPathBeanDefinitionScanner(doScan)

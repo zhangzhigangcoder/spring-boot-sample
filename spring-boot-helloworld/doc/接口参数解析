@@ -1,0 +1,13 @@
+
+Resolver:
+	
+	ServletModelAttributeMethodProcessor 解析普通实体 
+		-> 从request params中取值set到实体上
+		-> GET请求只能读取地址后请求参数
+		-> POST请求可以读取地址后请求参数
+		
+	RequestResponseBodyMethodProcessor 解析@RequestBody
+		-> 解析request body中json数据，并映射到实体上
+		
+	ServletRequestMethodArgumentResolver 解析HttpServeltRequest对象
+		-> 取RequestFacade赋值到HttpServeltRequest

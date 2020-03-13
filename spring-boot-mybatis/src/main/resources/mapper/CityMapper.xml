@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.spring.boot.dao.ICityDao">
+
+ 	<!--开启结果集缓存：1小时-->
+    <!-- <cache flushInterval="3600000" /> -->
+    
+	<resultMap id="BaseResultMap" type="org.spring.boot.entity.City">
+		<result column="id" property="id" />
+		<result column="city_name" property="cityName" />
+		<result column="create_date" property="create" jdbcType="TIMESTAMP"/>
+	</resultMap>
+
+	<!-- <parameterMap id="City" type="org.spring.boot.entity.City"/> -->
+
+	<sql id="Base_Column_List">
+		id, city_name, create_date
+	</sql>
+
+	<select id="findByName" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from t_city
+		where 
+		<if test="cityName != '' and cityName != null">
+			city_name = #{cityName}
+		</if>
+	</select>
+	
+	<select id="listAllCities" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from t_city
+	</select>
+	
+	<insert id="insertCity" parameterType="org.spring.boot.entity.City">
+		INSERT INTO`t_city` (`id`, `city_name`, `create_date`) VALUES (MD5(UUID()), #{cityName}, now())
+	</insert>
+
+</mapper>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<artifactId>spring-boot-jdbcTemplate-multi-datasource</artifactId>
+	<packaging>jar</packaging>
+
+	<name>spring-boot-jdbcTemplate-multi-datasource</name>
+	<description>Demo project for Spring Boot</description>
+	
+	  <properties>
+        <mybatis-spring-boot>1.2.0</mybatis-spring-boot>
+    </properties>
+
+	<parent>
+		<groupId>com.zhangzhigang</groupId>
+		<artifactId>spring-boot-sample</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+
+	<dependencies>
+		
+		<!-- Spring Boot jdbc 依赖 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-jdbc</artifactId>
+		</dependency>
+		
+		<!-- Mysql 连接驱动依赖 -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+		</dependency>
+			
+	</dependencies>
+
+</project>

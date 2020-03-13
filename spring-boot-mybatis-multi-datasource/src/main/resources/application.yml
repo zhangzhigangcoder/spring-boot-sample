@@ -1,0 +1,16 @@
+master: 
+  datasource:
+    url: jdbc:mysql://192.168.2.68:3306/test?useUnicode=true&characterEncoding=utf8
+    username: root
+    password: Quanwei@123
+    driverClassName: com.mysql.jdbc.Driver
+    
+cluster: 
+  datasource:
+    url: jdbc:mysql://192.168.2.68:3306/demo_ds?useUnicode=true&characterEncoding=utf8
+    username: root
+    password: Quanwei@123
+    driverClassName: com.mysql.jdbc.Driver
+    
+    
+

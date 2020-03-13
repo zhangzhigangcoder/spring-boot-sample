@@ -1,0 +1,19 @@
+server: 
+  port: 8080
+   
+logging:
+  config: classpath:config/logback.xml
+ 
+
+spring:
+  aop:
+  # 是否开启AOP,默认开启
+    auto: true
+  
+boot: 
+  user: 
+    name: "zhangzhigang"
+    age: 18
+  order: 
+    code: "123"
+    no: "12222222222222222222222"
