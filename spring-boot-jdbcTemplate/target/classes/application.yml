@@ -1,0 +1,9 @@
+spring:
+  datasource:
+    url: jdbc:mysql://192.168.2.68:3306/test?useUnicode=true&characterEncoding=utf8
+    username: root
+    password: Quanwei@123
+    driver-class-name: com.mysql.jdbc.Driver
+
+#  aop:
+#    proxy-target-class: false
