@@ -14,6 +14,7 @@ local.properties
 .settings/
 .loadpath
 .recommenders
+/.DS_Store
 
 # External tool builders
 .externalToolBuilders/
@@ -215,3 +216,4 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.gitignore.io/api/java,windows,eclipse,java-web,intellij
+/.DS_Store

@@ -1,0 +1,11 @@
+1.适用场景
+
+	Strategy pattern is used when we have multiple algorithm for a specific task and client decides the actual implementation to be used at runtime
+	
+2. Important Points
+	1) We could have used composition to create instance variable for strategies but we should avoid that as we want the specific strategy to be applied for a particular task. 
+	   Same is followed in Collections.sort() and Arrays.sort() method that take comparator as argument.
+	2) is very similar to State Pattern. One of the difference is that Context contains state as instance variable 
+	   and there can be multiple tasks whose implementation can be dependent on the state 
+	   whereas in strategy pattern strategy is passed as argument to the method and context object doesn’t have any variable to store it.
+	3) is useful when we have multiple algorithms for specific task and we want our application to be flexible to chose any of the algorithm at runtime for specific task.

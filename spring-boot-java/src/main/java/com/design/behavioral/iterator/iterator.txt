@@ -1,0 +1,13 @@
+1.适用场景
+
+	Provides a way to access the elements of an aggregate object without exposing its underlying represenation
+
+2.Example in JDK
+
+	1) Collection framework interator
+	2) Scanner Class
+	
+3.Important Points
+
+	1) Iterator pattern is useful when you want to provide a standard way to iterate over a collection and hide the implementation logic from client program.
+	2) The logic for iteration is embedded in the collection itself and it helps client program to iterate over them easily.

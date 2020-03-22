@@ -1,0 +1,106 @@
+Thread
+		Thread can be called lightweight process. Thread requires less resources to create and exists in the process, 
+	thread shares the process resources.
+	
+Java Thread Benefits
+
+	1.Java Threads are lightweight compared to processes, it takes less time and resource to create a thread.
+	
+	2.Threads share their parent process data and code
+	
+	3.Context switching between threads is usually less expensive than between processes.
+	
+	4.Thread intercommunication is relatively easy than process communication.
+	
+Runnable vs Thread
+
+	1.If your class provides more functionality rather than just running as Thread, 
+	you should implement Runnable interface to provide a way to run it as Thread. 
+	If your class only goal is to run as Thread, you can extend Thread class.
+
+	2.Implementing Runnable is preferred because java supports implementing multiple interfaces. 
+	If you extend Thread class, you can’t extend any other classes.
+
+
+Thread state:
+	
+	1.NEW 
+		
+		Thread state for a thread which has not yet started.
+	
+	2.RUNNABLE
+	
+		A thread in the runnable state is executing in the Java virtual machine but 
+	it maybe waiting for other resources from the operating system such as processor
+	
+	3.BLOCKED
+	
+		A thread in the blocked state is waiting for a monitor lock to enter a synchronized block/method 
+	or reenter a synchronized block/method after calling Object.wait.
+	
+	4.WAITING
+	
+		A thread is in the waiting state due to calling one of thefollowing methods: 
+			• Object.wait with no timeout
+			• Thread.join with no timeout
+			• LockSupport.park
+			
+		A thread in the waiting state is waiting for another thread to perform a particular action.
+		For example, a thread that has called Object.wait() on an object is waiting for another thread to call Object.notify() or Object.notifyAll() on that object. 
+		A thread that has called Thread.join() is waiting for a specified thread to terminate.
+		
+	5.TIMED_WAITING
+
+		A thread is in the timed waiting state due to calling one of the following methods with a specified positive waiting time: 
+			• Thread.sleep
+			• Object.wait with timeout
+			• Thread.join with timeout
+			• LockSupport.parkNanos
+			• LockSupport.parkUntil
+				
+	
+sleep method:
+	
+	Java Thread Sleep important points
+	
+		1.It always pause the current thread execution.
+		
+		2.The actual time thread sleeps before waking up and start execution depends on system timers and schedulers. 
+			For a quiet system, the actual time for sleep is near to the specified sleep time but for a busy system it will be little bit more.
+		
+		3***.Thread sleep doesn’t lose any monitors or locks current thread has acquired.
+		
+		4.Any other thread can interrupt the current thread in sleep, in that case InterruptedException is thrown.
+		
+	How Thread Sleep Works
+	
+		Thread.sleep() interacts with the thread scheduler to put the current thread in wait state for specified period of time. 
+		Once the wait time is over, thread state is changed to runnable state and wait for the CPU for further execution. 
+		So the actual time that current thread sleep depends on the thread scheduler that is part of operating system.
+		
+join method: 
+	
+	1.join():
+	
+		This java thread join method puts the current thread on wait until the thread on which it’s called is dead. 
+	If the thread is interrupted, it throws InterruptedException.
+	
+	2.join(long millis): 
+	
+		This java thread join method is used to wait for the thread on which it’s called to be dead or wait for specified milliseconds. 
+	Since thread execution depends on OS implementation, it doesn’t guarantee that the current thread will wait only for given time.
+		
+	3. join(long millis, int nanos): 
+	
+		This java thread join method is used to wait for thread to die for given milliseconds plus nanoseconds.
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		

@@ -1,0 +1,8 @@
+1.适用场景
+
+		Template Method is a behavioral design pattern. Template Method design pattern is used to create a method stub and deferring some of the steps of implementation to the subclasses.
+	
+2.Example in JDK
+	
+	1) All non-abstract methods of java.io.InputStream, java.io.OutputStream, java.io.Reader and java.io.Writer.
+	2) All non-abstract methods of java.util.AbstractList, java.util.AbstractSet and java.util.AbstractMap.

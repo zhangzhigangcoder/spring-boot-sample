@@ -1,0 +1,4 @@
+1.适用场景
+
+		When we have interface hierarchies in both interfaces as well as implementations, 
+	then bridge design pattern is used to decouple the interfaces from implementation and hiding the implementation details from the client programs.

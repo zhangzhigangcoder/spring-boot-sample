@@ -1,0 +1,12 @@
+1.适用场景
+
+		Visitor pattern is used when we have to perform an operation on a group of similar kind of Objects. 
+	With the help of visitor pattern, we can move the operational logic from the objects to another class.
+
+2.Benefits
+
+	1) The benefit of this pattern is that if the logic of operation changes, 
+	   then we need to make change only in the visitor implementation rather than doing it in all the item classes.
+
+	2) Another benefit is that adding a new item to the system is easy, 
+	   it will require change only in visitor interface and implementation and existing item classes will not be affected.

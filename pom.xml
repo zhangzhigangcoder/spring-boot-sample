@@ -25,6 +25,7 @@
 	</properties>
 	
 	<modules>
+		<module>spring-boot-java</module>
 		<module>spring-boot-helloworld</module>
 		<module>spring-boot-webflux</module>
 		<module>spring-boot-swagger</module>

@@ -1,0 +1,7 @@
+1.适用场景
+
+		Provide a surrogate or placeholder for another object to control access to it.
+	
+2.Example in JDK
+	
+	Java RMI package uses proxy pattern. That’s all for proxy design pattern in java.

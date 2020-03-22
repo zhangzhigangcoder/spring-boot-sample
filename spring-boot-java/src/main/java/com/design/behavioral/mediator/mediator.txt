@@ -1,0 +1,21 @@
+1.适用场景
+
+		Mediator design pattern is used to provide a centralized communication medium between different objects in a system. 
+	Mediator design pattern is very helpful in an enterprise application where multiple objects are interacting with each other. 
+	If the objects interact with each other directly, the system components are tightly-coupled with each other that makes maintainability cost higher and not flexible to extend easily. 
+	Mediator pattern focuses on provide a mediator between objects for communication and help in implementing lose-coupling between objects.	
+	
+2.Example in JDK
+
+	1) java.util.Timer class scheduleXXX() methods
+	2) Java Concurrency Executor execute() method.
+	3) java.lang.reflect.Method invoke() method.
+	
+3.Important Points
+
+	1) Mediator pattern is useful when the communication logic between objects is complex, 
+	   we can have a central point of communication that takes care of communication logic.
+	2) Java Message Service (JMS) uses Mediator pattern along with Observer pattern 
+	   to allow applications to subscribe and publish data to other applications.
+	3) We should not use mediator pattern just to achieve lose-coupling because if the number of mediators will grow, 
+	   then it will become hard to maintain them.
