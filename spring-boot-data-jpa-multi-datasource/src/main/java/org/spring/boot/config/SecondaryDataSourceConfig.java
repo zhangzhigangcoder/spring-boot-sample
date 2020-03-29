@@ -1,15 +1,12 @@
 package org.spring.boot.config;
 
 
-import java.util.Map;
-
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.orm.jpa.HibernateSettings;
 import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
@@ -65,7 +62,7 @@ public class SecondaryDataSourceConfig {
 	public LocalContainerEntityManagerFactoryBean entityManagerFactorySecondary(EntityManagerFactoryBuilder builder,@Qualifier("secondaryDataSource") DataSource dataSource) {
 		return builder
 				.dataSource(dataSource)
-				.properties(getVendorProperties())
+				.properties(jpaProperties.getProperties())
 				//设置实体类所在的地方
 				.packages("org.spring.boot.entity.secondary")
 				.persistenceUnit("secondaryPersistenceUnit")
@@ -76,10 +73,6 @@ public class SecondaryDataSourceConfig {
 	public PlatformTransactionManager transactionManagerSecondary(
 			EntityManagerFactoryBuilder builder,@Qualifier("secondaryDataSource") DataSource dataSource) {
 		return new JpaTransactionManager(entityManagerFactorySecondary(builder, dataSource).getObject());
-	}
-	
-	private Map<String,Object> getVendorProperties(){
-		return jpaProperties.getHibernateProperties(new HibernateSettings());
 	}
 	
 }
