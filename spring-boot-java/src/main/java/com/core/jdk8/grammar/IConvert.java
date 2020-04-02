@@ -1,8 +1,5 @@
 package com.core.jdk8.grammar;
 
-import java.util.Arrays;
-import java.util.stream.Stream;
-
 /**
  *	在java8中，满足下面任意一个条件的接口都是函数式接口：
  *
