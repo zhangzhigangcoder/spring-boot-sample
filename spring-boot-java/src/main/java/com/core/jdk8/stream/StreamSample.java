@@ -4,13 +4,16 @@ import java.security.cert.PKIXRevocationChecker.Option;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Random;
 import java.util.function.BinaryOperator;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.LongStream;
@@ -20,11 +23,17 @@ import javax.tools.StandardLocation;
 
 import org.omg.Messaging.SyncScopeHelper;
 
+import com.core.jdk8.grammar.Something;
+
+
 @SuppressWarnings("unused")
 public class StreamSample {
 	
 	public static void main(String[] args) {
-		
+		Stream<String> names = Stream.of("aBc","d","ef");
+		// collect ???
+		List<String> list = names.map(s -> s.toUpperCase()).collect(Collectors.toList());
+		System.out.println(list);
 	}
 	
 	/**
@@ -53,6 +62,10 @@ public class StreamSample {
 		// 4.Arrays.stream()  String.chars()
 		LongStream ls = Arrays.stream(new long[] {1,2,3,4});
 		IntStream ls2 = "abc".chars();
+		Map<String, String> map = new HashMap<String, String>();
+		
+//		Map<Integer, TestpaperItemEntity> testpaperItemResultEntityMap = testpaperItemEntities.stream()
+//                .collect(Collectors.toMap(TestpaperItemEntity::getId, Function.identity(), (key1, key2) -> key2));
 	}
 	
 	/**
@@ -71,7 +84,6 @@ public class StreamSample {
 		// 2.Stream.map(Function<? super T, ? extends R> mapper)
 		// 投影
 		Stream<String> names = Stream.of("aBc","d","ef");
-		System.out.println();
 		// collect ???
 		System.out.println(names.map(s -> s.toUpperCase()).collect(Collectors.toList()));
 		

@@ -11,11 +11,11 @@ public interface Interface1 {
 	void method1(String str);
 	
 	default void log(String str) {
-		System.out.println("I2 logging: " + str);
+		System.out.println("I1 logging: " + str);
 	}
 	
 	default void log2(String str) {
-		System.out.println("I2 logging: " + str);
+		System.out.println("I2 logging2: " + str);
 	}
 	
 	/**

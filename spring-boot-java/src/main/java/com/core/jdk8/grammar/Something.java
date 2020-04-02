@@ -21,4 +21,8 @@ public class Something {
 		return String.valueOf(s.charAt(s.length()-1));
 	}
 	
+	public static String endWith() {
+		return "endWith";
+	}
+	
 }

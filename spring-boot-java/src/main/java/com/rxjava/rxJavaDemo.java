@@ -49,7 +49,7 @@ public class rxJavaDemo {
 	private static Logger logger = Logger.getLogger(rxJavaDemo.class);
 
 	public static void main(String[] args) {
-		testSubscribeOn();
+		testJust();
 	}
 	
 	/**************************创建操作符*************************/
@@ -168,79 +168,75 @@ public class rxJavaDemo {
 	 * 创建一个 Observable并发送事件，发送的事件总数不可以超出十个
 	 */
 	public static void testJust() {
-		// 1. 小说(被观察者)
 		Observable.just("1", "2", "3")
-				// 3. 读者订阅小说
-				.subscribe(new Observer<String>() {
-					// 2. 读者(观察者)
-					Disposable disposable = null;
+			.subscribe(new Observer<String>() {
+				
+				Disposable disposable = null;
+				
+				@Override
+				public void onSubscribe(Disposable d) {
+					disposable = d;
+					logger.debug("onSubscribe");
+				}
 
-					@Override
-					public void onSubscribe(Disposable d) {
-						disposable = d;
-						logger.debug("onSubscribe");
+				@Override
+				public void onNext(String t) {
+					if ("cancel".equals(t)) { // 取消订阅，后面的“连载3”不会再收到
+						disposable.dispose();
+						return;
 					}
+					logger.debug("onNext: " + t);
+				}
 
-					@Override
-					public void onNext(String t) {
-						if ("cancel".equals(t)) { // 取消订阅，后面的“连载3”不会再收到
-							disposable.dispose();
-							return;
-						}
-						logger.debug("onNext: " + t);
-					}
+				@Override
+				public void onError(Throwable e) {
+					logger.debug("onError: " + e.getMessage());
+				}
 
-					@Override
-					public void onError(Throwable e) {
-						logger.debug("onError: " + e.getMessage());
-					}
+				@Override
+				public void onComplete() {
+					logger.debug("onComplete");
+				}
 
-					@Override
-					public void onComplete() {
-						logger.debug("onComplete");
-					}
-
-				});
+			});
 	}
 
 	/**
 	 * 和 just() 类似，但 fromArray 可以传入多于十个的变量，并且可以传入一个数组
 	 */
 	public static void testFromArray() {
-		// 1. 小说(被观察者)
 		String[] arrays = new String[] { "1", "2", "3" };
 		Observable.fromArray(arrays)
-				// 3. 读者订阅小说
-				.subscribe(new Observer<String>() {
-					// 2. 读者(观察者)
-					Disposable disposable = null;
+			.subscribe(new Observer<String>() {
+				
+				Disposable disposable = null;
 
-					@Override
-					public void onSubscribe(Disposable d) {
-						disposable = d;
-						logger.debug("onSubscribe");
+				@Override
+				public void onSubscribe(Disposable d) {
+					disposable = d;
+					logger.debug("onSubscribe");
+				}
+
+				@Override
+				public void onNext(String t) {
+					if ("cancel".equals(t)) { // 取消订阅，后面的“连载3”不会再收到
+						disposable.dispose();
+						return;
 					}
+					logger.debug("onNext: " + t);
+				}
 
-					@Override
-					public void onNext(String t) {
-						if ("cancel".equals(t)) { // 取消订阅，后面的“连载3”不会再收到
-							disposable.dispose();
-							return;
-						}
-						logger.debug("onNext: " + t);
-					}
+				@Override
+				public void onError(Throwable e) {
+					logger.debug("onError: " + e.getMessage());
+				}
 
-					@Override
-					public void onError(Throwable e) {
-						logger.debug("onError: " + e.getMessage());
-					}
+				@Override
+				public void onComplete() {
+					logger.debug("onComplete");
+				}
 
-					@Override
-					public void onComplete() {
-						logger.debug("onComplete");
-					}
-
-				});
+			});
 	}
 
 	/**
@@ -248,7 +244,6 @@ public class rxJavaDemo {
 	 * Callable 和 Runnable 的用法基本一致，只是它包含一个返回值，这个结果值就是发给观察者的
 	 */
 	public static void testFromCallable() {
-		// 1. 小说(被观察者)
 		Observable.fromCallable(new Callable<String>() {
 
 			@Override
@@ -257,9 +252,8 @@ public class rxJavaDemo {
 			}
 
 		})
-		// 3. 读者订阅小说
 		.subscribe(new Observer<String>() {
-			// 2. 读者(观察者)
+			
 			Disposable disposable = null;
 
 			@Override
