@@ -32,7 +32,8 @@ public class StreamSample {
 	public static void main(String[] args) {
 		Stream<String> names = Stream.of("aBc","d","ef");
 		// collect ???
-		List<String> list = names.map(s -> s.toUpperCase()).collect(Collectors.toList());
+		Stream<String> list = names.map(s -> s.toUpperCase());
+		list.collect(Collectors.toList());
 		System.out.println(list);
 	}
 	
