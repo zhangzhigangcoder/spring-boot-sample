@@ -1,4 +1,4 @@
-package com.core.jdk8.grammar;
+package com.core.jdk8.interfacee;
 
 /**
  *
@@ -21,7 +21,7 @@ public class Something {
 		return String.valueOf(s.charAt(s.length()-1));
 	}
 	
-	public static String endWith() {
+	public String endWith() {
 		return "endWith";
 	}
 	

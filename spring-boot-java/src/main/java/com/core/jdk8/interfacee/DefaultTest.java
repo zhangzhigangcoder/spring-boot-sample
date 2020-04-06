@@ -6,7 +6,7 @@ package com.core.jdk8.interfacee;
  * @see Interface1 Interface2
  *
  */
-public class DefaultSample  implements Interface1, Interface2{
+public class DefaultTest  implements Interface1, Interface2{
 
 	@Override
 	public void method1(String str) {
