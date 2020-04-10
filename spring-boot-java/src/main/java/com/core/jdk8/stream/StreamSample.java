@@ -30,16 +30,7 @@ import com.core.jdk8.interfacee.Something;
 public class StreamSample {
 
 	public static void main(String[] args) {
-		List<TestEntity> list = new ArrayList<>();
-		list.add(new TestEntity("1", "name1"));
-		list.add(new TestEntity("1", "name11"));
-		list.add(new TestEntity("2", "name22"));
-		list.add(new TestEntity("2", "name2"));
-		list.add(new TestEntity("3", "name3"));
-		list.add(new TestEntity("3", "name33"));
-		list.add(new TestEntity("4", "name4"));
-		Map<String, TestEntity> map = list.stream().collect(Collectors.toMap(TestEntity::getId, Function.identity(), (k1, k2) -> k2));
-		map.forEach((k, v) -> System.out.println(k + ":" + v));
+		
 		
 //		Map<String, Integer> map = new HashMap<>();
 //		map.put("1", 1);
@@ -104,8 +95,20 @@ public class StreamSample {
 		// 2.Stream.map(Function<? super T, ? extends R> mapper)
 		// 投影
 		Stream<String> names = Stream.of("aBc", "d", "ef");
-		// collect 
+		// collect -> List
 		System.out.println(names.map(s -> s.toUpperCase()).collect(Collectors.toList()));
+		
+		// collect -> Map
+		List<TestEntity> list = new ArrayList<>();
+		list.add(new TestEntity("1", "name1"));
+		list.add(new TestEntity("1", "name11"));
+		list.add(new TestEntity("2", "name22"));
+		list.add(new TestEntity("2", "name2"));
+		list.add(new TestEntity("3", "name3"));
+		list.add(new TestEntity("3", "name33"));
+		list.add(new TestEntity("4", "name4"));
+		Map<String, TestEntity> map = list.stream().collect(Collectors.toMap(TestEntity::getId, Function.identity(), (k1, k2) -> k2));
+		map.forEach((k, v) -> System.out.println(k + ":" + v));
 
 		// 3.Stream.flatMap(Function<? super T, ? extends Stream<? extends R>> mapper)
 		// 合并

@@ -49,7 +49,7 @@ public class rxJavaDemo {
 	private static Logger logger = Logger.getLogger(rxJavaDemo.class);
 
 	public static void main(String[] args) {
-		testJust();
+		testConcatMap();
 	}
 	
 	/**************************创建操作符*************************/
