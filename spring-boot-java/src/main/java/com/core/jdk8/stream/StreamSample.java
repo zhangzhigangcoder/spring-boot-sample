@@ -81,10 +81,6 @@ public class StreamSample {
 		IntStream ls2 = "abc".chars();
 		Map<String, String> map = new HashMap<String, String>();
 
-		// Map<Integer, TestpaperItemEntity> testpaperItemResultEntityMap =
-		// testpaperItemEntities.stream()
-		// .collect(Collectors.toMap(TestpaperItemEntity::getId, Function.identity(),
-		// (key1, key2) -> key2));
 	}
 
 	/**
