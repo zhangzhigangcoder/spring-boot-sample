@@ -13,6 +13,21 @@ public class CacheServiceImpl implements CacheService {
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
 
+	@Override
+	public void set(String key, String value) {
+		stringRedisTemplate.opsForValue().set(key, value);
+	}
+
+	@Override
+	public void set(String key, String value, int seconds) {
+		 stringRedisTemplate.opsForValue().set(key,value, seconds);
+	}
+
+	@Override
+	public String get(String key) {
+		return stringRedisTemplate.opsForValue().get(key);
+	}
+    
     @Override
     public <T> void setModel(String key, T model) {
         stringRedisTemplate.opsForValue().set(key, JSON.toJSONString(model));

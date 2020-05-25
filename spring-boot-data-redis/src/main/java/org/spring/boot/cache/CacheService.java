@@ -2,6 +2,12 @@ package org.spring.boot.cache;
 
 public interface CacheService {
 
+    void set(String key, String value);
+
+    void set(String key, String value, int seconds);
+
+    String get(String key);
+	
     /**
      * 功能描述: 设置缓存对象
      *
