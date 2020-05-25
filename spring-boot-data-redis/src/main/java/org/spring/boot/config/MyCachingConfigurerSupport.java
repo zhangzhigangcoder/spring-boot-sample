@@ -1,4 +1,4 @@
-package org.spring.boot.cache;
+package org.spring.boot.config;
 
 import org.springframework.cache.annotation.CachingConfigurerSupport;
 

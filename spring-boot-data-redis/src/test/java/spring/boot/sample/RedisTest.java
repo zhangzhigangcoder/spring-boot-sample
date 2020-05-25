@@ -5,13 +5,11 @@ import java.util.UUID;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.spring.boot.Application;
-import org.spring.boot.cache.CityRepository;
+import org.spring.boot.cache.CacheService;
 import org.spring.boot.entity.City;
+import org.spring.boot.repository.CityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.dao.DataAccessException;
-import org.springframework.data.redis.connection.RedisConnection;
-import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -29,6 +27,9 @@ public class RedisTest {
 	@Autowired
 	private CityRepository cityRepository;
 	
+	@Autowired
+	private CacheService cacheService;
+	
 	@Test
 	public void stringTest() {
 		// 保存字符串
@@ -41,10 +42,8 @@ public class RedisTest {
 	public void cityTest() {
 		City city = new City(UUID.randomUUID().toString(), "苏州");
 		// 保存字符串
-		redisTemplate.opsForValue().set(city.getId().toString(), city);
-		for(int i = 0; i < 50; i++) {
-			System.out.println((City) redisTemplate.opsForValue().get(city.getId().toString()));
-		}
+		cacheService.setModel(city.getId().toString(), city);
+		System.out.println(cacheService.getModel(city.getId().toString(), City.class));
 //		try {
 //			Thread.sleep(3600 * 1000);
 //		} catch (InterruptedException e) {

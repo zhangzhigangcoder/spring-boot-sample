@@ -1,4 +1,4 @@
-package org.spring.boot.cache;
+package org.spring.boot.repository;
 
 import org.spring.boot.entity.City;
 import org.springframework.cache.annotation.CacheEvict;
