@@ -1,5 +1,7 @@
 package org.spring.boot.service;
 
+import java.util.Map;
+
 import org.springframework.aop.framework.AopContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -73,7 +75,7 @@ public class UserServiceImpl implements IUserService{
 	}
 
 	/**
-	 * 张三，李四均为插入
+	 * 张三，李四均未插入
 	 * 外部方法开启事务，内部方法加入外部方法事务，内部方法抛出异常，外部方法感知到异常导致整体事务回滚
 	 */
 	@Transactional
@@ -84,7 +86,7 @@ public class UserServiceImpl implements IUserService{
 	}
 
 	/**
-	 * 张三，李四均为插入
+	 * 张三，李四均未插入
 	 * 外部方法开启事务，内部方法加入外部方法事务，内部方法抛出异常会标记当前事务为rollback-only,
 	 * 即使异常在外部方法中被catch了，外部方法事务不会检测到异常，但会检测到rollback-only，从而导致整体事务回滚
 	 */
@@ -239,6 +241,7 @@ public class UserServiceImpl implements IUserService{
 	public void transaction_fail() {
 		user2Dao.insertRequired("张三");
 		try {
+			// 该方法不会被事务代理
 			insertNestedException("李四");
 		} catch (Exception e) {
 			System.out.println("事务回滚");
@@ -267,4 +270,18 @@ public class UserServiceImpl implements IUserService{
 		jdbcTemplate.update("insert into user2(name) values(?)", name);
 		throw new IllegalArgumentException();
 	}
+
+	@Transactional
+	@Override
+	public void outTransactionNotCommitAndOtherConnectRead() {
+		user2Dao.insertRequired("李四5");
+		// 当不开启事务或propagation为REQUIRED/NESTED可以获取到，REQUIRES_NEW获取不到
+		// 本质上看和上面的事务是不是在同一个事务中
+		Map<String, Object> user = user2Dao.getUser("李四5");
+		if (null != user) {
+			System.out.println(user.get("id") + ": " + user.get("name"));
+		}
+	}
+	
+	
 }

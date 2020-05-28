@@ -50,5 +50,7 @@ public interface IUserService {
 	void transaction_success();
 	
 	int insertNestedException(String name);
+	
+	void outTransactionNotCommitAndOtherConnectRead();
 
 }

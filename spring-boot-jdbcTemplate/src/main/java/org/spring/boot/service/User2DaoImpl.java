@@ -1,5 +1,7 @@
 package org.spring.boot.service;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -60,6 +62,12 @@ public class User2DaoImpl implements IUser2Dao {
 	public int insertNestedException(String name) {
 		jdbcTemplate.update("insert into user2(name) values(?)", name);
 		throw new IllegalArgumentException();
+	}
+	
+	@Transactional(propagation=Propagation.REQUIRES_NEW)
+	@Override
+	public Map<String, Object> getUser(String name) {
+		return jdbcTemplate.queryForMap("select * from user2 where name = ?", name);
 	}
 
 }
