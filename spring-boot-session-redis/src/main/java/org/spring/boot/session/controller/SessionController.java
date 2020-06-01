@@ -6,14 +6,12 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
 public class SessionController {
 	
-	@ResponseBody
 	@GetMapping("/sessionId")
 	public String getSessionId(HttpServletRequest request, HttpSession session) throws ServletException {
 		String uid = null;

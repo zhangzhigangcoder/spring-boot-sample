@@ -6,7 +6,11 @@ import org.springframework.session.data.redis.config.annotation.web.http.EnableR
 
 /**
  * SessionAutoConfiguration
+ * 	-> SessionRepositoryFilterConfiguration
+ * 		-> SessionRepositoryFilter#SessionRepositoryRequestWrapper 
+ * 			-> RedisIndexedSessionRepository
  * RedisHttpSessionConfiguration 主配置类
+ * SpringHttpSessionConfiguration Listener
  * @author qw
  *
  */
