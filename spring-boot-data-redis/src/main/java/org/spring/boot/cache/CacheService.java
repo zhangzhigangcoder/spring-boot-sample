@@ -1,7 +1,7 @@
 package org.spring.boot.cache;
 
 public interface CacheService {
-
+	
     void set(String key, String value);
 
     void set(String key, String value, int seconds);
@@ -43,5 +43,11 @@ public interface CacheService {
     <T> T getModel(String key, Class<T> clazz);
 
     <T> void delModel(String key);
-
+    
+    /**
+     * 向指定通道发送消息
+     * @param channel
+     * @param msg
+     */
+    void sendChannelMsg(String channel, String msg);
 }

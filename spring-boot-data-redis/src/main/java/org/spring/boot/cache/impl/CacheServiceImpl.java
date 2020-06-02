@@ -51,4 +51,9 @@ public class CacheServiceImpl implements CacheService {
     public <T> void delModel(String key) {
         stringRedisTemplate.delete(key);
     }
+
+	@Override
+	public void sendChannelMsg(String channel, String msg) {
+		stringRedisTemplate.convertAndSend(channel, msg);
+	}
 }

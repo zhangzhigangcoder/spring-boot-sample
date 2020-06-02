@@ -9,7 +9,6 @@ import org.springframework.context.annotation.Configuration;
 /**
  * session生命周期监听
  * 
- * @author zhangzhigang
  */
 @Configuration
 public class LocalHttpSessionListener implements HttpSessionListener {
