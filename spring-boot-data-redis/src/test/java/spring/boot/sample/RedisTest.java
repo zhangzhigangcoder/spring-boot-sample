@@ -1,6 +1,7 @@
 package spring.boot.sample;
 
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -33,9 +34,13 @@ public class RedisTest {
 	@Test
 	public void stringTest() {
 		// 保存字符串
-		stringRedisTemplate.opsForValue().set("aaa", "111");
-		String value = stringRedisTemplate.opsForValue().get("aaa");
-		System.out.println(value);
+//		stringRedisTemplate.opsForValue().set("aaa", "111", 10, TimeUnit.HOURS);
+		stringRedisTemplate.delete("aaa");
+//		String value = stringRedisTemplate.opsForValue().get("aaa");
+//		System.out.println(value);
+		
+		stringRedisTemplate.opsForValue().set("4cd516bfc71b4243b1239e7b0f18be3b", "a0a93bfa324754bd79a88624faabd8ea9");
+		stringRedisTemplate.opsForValue().set("a0a93bfa324754bd79a88624faabd8ea9", "{\"availableScore\":0,\"deviceType\":0,\"mobile\":\"13914085990\",\"nickName\":\"\",\"passportId\":\"4cd516bfc71b4243b1239e7b0f18be3b\",\"userName\":\"qw6VWaa3l\"}");
 	}
 	
 	@Test

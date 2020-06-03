@@ -102,7 +102,7 @@ public class RedisConfiguration {
 	public RedisMessageListenerContainer redisMesageListener(RedisConnectionFactory connectionFactory, MessageListenerAdapter messageLisenerAdapter) {
 		RedisMessageListenerContainer container = new RedisMessageListenerContainer();
 		container.setConnectionFactory(connectionFactory);
-		container.addMessageListener(messageLisenerAdapter, new PatternTopic(RedisConstant.CHANNEL));
+		container.addMessageListener(messageLisenerAdapter, new PatternTopic(RedisConstant.KEY_EVENT_DEL));
 		return container;
 	}
 	

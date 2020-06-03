@@ -25,11 +25,11 @@ spring:
         max-wait: 5000
         
    ######## spring session configuration #######
-#  session:
+  session:
     # Session store type
 #    store-type: redis
-#    redis:
+    redis:
       # Session flush model
 #      flush-mode: ON_SAVE
       # Namespace for keys used to store sessions.
-#      namespace: spring:session
+      namespace: spring:session
