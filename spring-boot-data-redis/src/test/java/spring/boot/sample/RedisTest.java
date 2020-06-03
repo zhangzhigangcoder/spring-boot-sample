@@ -34,7 +34,7 @@ public class RedisTest {
 	@Test
 	public void stringTest() {
 		// 保存字符串
-//		stringRedisTemplate.opsForValue().set("aaa", "111", 10, TimeUnit.HOURS);
+		stringRedisTemplate.opsForValue().set("aaa", "111", 10, TimeUnit.HOURS);
 		stringRedisTemplate.delete("aaa");
 //		String value = stringRedisTemplate.opsForValue().get("aaa");
 //		System.out.println(value);

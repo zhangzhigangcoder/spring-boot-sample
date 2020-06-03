@@ -15,7 +15,7 @@ import org.springframework.session.data.redis.config.annotation.web.http.EnableR
  * @author qw
  *
  */
-@EnableRedisHttpSession(maxInactiveIntervalInSeconds = 30, redisNamespace = "CAS_SSO_SESSION")
+@EnableRedisHttpSession(maxInactiveIntervalInSeconds = 300000000, redisNamespace = "CAS_SSO_SESSION")
 @SpringBootApplication
 public class SessionApplication {
 
