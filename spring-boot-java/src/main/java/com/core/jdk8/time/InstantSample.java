@@ -4,7 +4,6 @@ import java.time.Duration;
 import java.time.Instant;
 
 /**
- * Immutability Thread safe
  * 
  * @author zhangzhigang
  *

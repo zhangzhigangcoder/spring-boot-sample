@@ -12,6 +12,7 @@ import org.springframework.session.data.redis.config.annotation.web.http.EnableR
  * 			-> RedisIndexedSessionRepository
  * SpringHttpSessionConfiguration 
  * 	-> RedisMessageListenerContainer Listener
+ * SessionFlashMapManager
  * @author qw
  *
  */
