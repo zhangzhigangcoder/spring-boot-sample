@@ -36,6 +36,7 @@
 		<module>spring-boot-data-jpa-multi-datasource</module>
 		<module>spring-boot-mybatis</module>
 		<module>spring-boot-redis</module>
+		<module>spring-boot-session-redis</module>
 		<module>spring-boot-mybatis-annotation</module>
 		<module>spring-boot-mybatis-multi-datasource</module>
 	</modules>

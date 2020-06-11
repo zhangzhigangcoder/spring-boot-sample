@@ -21,7 +21,7 @@ public class UserTests {
 	@Test
 	public void test() {
 //		userService.transaction_success();
-		userService.notTransaction__required_not_transaction_exception();
+		userService.outTransactionNotCommitAndOtherConnectRead();
 	}
 }
 

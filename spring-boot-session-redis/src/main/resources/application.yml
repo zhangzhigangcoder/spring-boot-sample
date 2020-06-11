@@ -1,0 +1,37 @@
+server:
+  port: 8080
+  servlet:
+    session:
+#       Session timeout. 默认单位秒，不起作用，用@EnableRedisHttpSession(maxInactiveIntervalInSeconds = 300000000)配置
+#      timeout: 86400 # 24 * 60 * 60
+      cookie:
+        name: sts # 配置cookie名称
+        # cookie timeout,seconds
+        max-age: 3600
+        
+
+spring:
+  ######## redis configuration #######
+  redis:
+    database: 5
+    host: 192.168.0.121
+#    host: 127.0.0.1
+    port: 6379
+    timeout: 5000
+    password:
+    lettuce:
+      pool:
+        max-idle: 9
+        min-idle: 1
+        max-active: 9
+        max-wait: 5000
+        
+   ######## spring session configuration 这里用@EnableRedisHttpSession注解配置#######
+#  session:
+    # Session store type
+#    store-type: redis
+#    redis:
+      # Session flush model
+#      flush-mode: ON_SAVE
+      # Namespace for keys used to store sessions.
+#      namespace: spring:session

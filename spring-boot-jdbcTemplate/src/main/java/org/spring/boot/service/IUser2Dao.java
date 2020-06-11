@@ -1,5 +1,7 @@
 package org.spring.boot.service;
 
+import java.util.Map;
+
 /**
  * 用户DAO层
  * 
@@ -21,4 +23,5 @@ public interface IUser2Dao {
 	
 	int insertNestedException(String name);
 	
+	Map<String, Object> getUser(String name);
 }
