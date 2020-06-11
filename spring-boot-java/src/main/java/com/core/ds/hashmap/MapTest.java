@@ -1,4 +1,4 @@
-package com.core.data.structure;
+package com.core.ds.hashmap;
 
 import com.core.copy.Person;
 
