@@ -70,12 +70,12 @@ class ArrayQueue {
 	}
 
 	// 判断队列是否满(当指向最后一个位置时，前面的元素有可能都被取出了)
-	public boolean isFull() {
+	private boolean isFull() {
 		return this.rear == this.maxSize - 1;
 	}
 
 	// 判断队列是否为空(有可能都指向最后一个元素位置)
-	public boolean isEmpty() {
+	private boolean isEmpty() {
 		return this.rear == this.front;
 	}
 

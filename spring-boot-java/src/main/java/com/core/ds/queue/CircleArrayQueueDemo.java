@@ -72,14 +72,15 @@ class CircleArrayQueue {
 	}
 
 	// 判断队列是否满
-	public boolean isFull() {
+	private boolean isFull() {
 		// 调整3
 		// 因为可能会出现 rear < front 情况
+		// 这里体现了rear是指向最后一个元素的后一个位置
 		return (this.rear + 1) % this.maxSize == this.front;
 	}
 
 	// 判断队列是否为空
-	public boolean isEmpty() {
+	private boolean isEmpty() {
 		// 这里体现了rear是指向最后一个元素的后一个位置
 		return this.rear == this.front;
 	}

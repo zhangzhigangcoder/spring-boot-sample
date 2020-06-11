@@ -61,7 +61,7 @@ class CircleArrayQueue2 {
 	private int front;
 	// 调整2
 	// 队尾， 指向最后一个元素
-	// 初始化为0
+	// 初始化为-1
 	private int rear;
 	// 队列数组
 	private int[] arr;
