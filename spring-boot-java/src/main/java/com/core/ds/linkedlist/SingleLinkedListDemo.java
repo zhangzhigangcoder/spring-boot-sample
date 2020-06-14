@@ -1,7 +1,9 @@
 package com.core.ds.linkedlist;
 
+import java.util.Stack;
+
 /**
- * 无序单链表
+ * 单向链表
  *
  */
 public class SingleLinkedListDemo {
@@ -10,15 +12,74 @@ public class SingleLinkedListDemo {
 		HeroNode hero1 = new HeroNode(1, "宋江", "及时雨");
 		HeroNode hero2 = new HeroNode(2, "卢俊义", "玉麒麟");
 		HeroNode hero3 = new HeroNode(3, "吴用", "智多星");
-		HeroNode hero4 = new HeroNode(4, "林冲", "豹子头");
+		HeroNode hero9 = new HeroNode(9, "林冲", "豹子头");
 		SingleLinkedList singleLinkedList = new SingleLinkedList(true);
-		singleLinkedList.add(hero4);
+		singleLinkedList.add(hero9);
 		singleLinkedList.add(hero1);
 		singleLinkedList.add(hero2);
 		singleLinkedList.add(hero3);
-		hero2 = new HeroNode(2, "时迁", "跳上蚤");
-		singleLinkedList.update(hero2);
-		singleLinkedList.list();
+//		singleLinkedList.list();
+		
+		HeroNode hero5 = new HeroNode(5, "宋江", "及时雨");
+		HeroNode hero6 = new HeroNode(6, "卢俊义", "玉麒麟");
+		HeroNode hero7 = new HeroNode(7, "吴用", "智多星");
+		HeroNode hero8 = new HeroNode(8, "林冲", "豹子头");
+		SingleLinkedList singleLinkedList2 = new SingleLinkedList(true);
+		singleLinkedList2.add(hero5);
+		singleLinkedList2.add(hero7);
+		singleLinkedList2.add(hero8);
+		singleLinkedList2.add(hero6);
+//		singleLinkedList2.list();
+//		hero2 = new HeroNode(2, "时迁", "跳上蚤");
+//		singleLinkedList.update(hero2);
+//		reversePrint(singleLinkedList.getHead());
+		SingleLinkedList mergeSingleLinkedList = mergeSingleLinkedList(singleLinkedList.getHead(),singleLinkedList2.getHead());
+		mergeSingleLinkedList.list();
+				
+		
+	}
+	
+	/**面试题：逆序打印单链表
+	 * 利用栈先进后出特点
+	 * @param head
+	 */
+	public static void reversePrint(HeroNode head) {
+		Stack<HeroNode> stack = new Stack<>();
+		HeroNode currNode = head.next;
+		while (null != currNode) {
+			stack.push(currNode);
+			currNode = currNode.next;
+		}
+		while (stack.size() > 0) {
+			System.out.println(stack.pop());
+		}
+	}
+	
+	/**
+	 * 合并两个有序单链表
+	 * @param head1
+	 * @param head2
+	 */
+	public static SingleLinkedList mergeSingleLinkedList(HeroNode head1, HeroNode head2) {
+		SingleLinkedList linkedList = new SingleLinkedList(true);
+		HeroNode curNode1 = head1.next;
+		HeroNode nextNode1 = head1.next;
+		HeroNode curNode2 = head2.next;
+		HeroNode nextNode2 = head2.next;
+		while (null != curNode1 || null != curNode2) {
+			
+			if (null != curNode1) {
+				nextNode1 = curNode1.next;
+				linkedList.add(curNode1);
+				curNode1 = nextNode1;
+			}
+			if (null != curNode2) {
+				nextNode2 = curNode2.next;
+				linkedList.add(curNode2);
+				curNode2 = nextNode2;
+			}
+		}
+		return linkedList;
 	}
 }
 
@@ -121,6 +182,10 @@ class SingleLinkedList {
 			temp = temp.next;
 		}
 	}
+	
+	public HeroNode getHead() {
+		return this.head;
+	}
 
 }
 
@@ -131,6 +196,10 @@ class HeroNode {
 	public String name;
 	public String nikename;
 	public HeroNode next;
+	
+	public HeroNode(int no) {
+		this(no, null, null);
+	}
 
 	public HeroNode(int no, String name, String nikename) {
 		this.no = no;
