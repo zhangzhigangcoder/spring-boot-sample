@@ -19,7 +19,7 @@ public class PolandNotation {
 //		int res = calculate(suffixExpression);
 //		System.out.println(res);
 		List<String> list = new ArrayList<String>();
-		String s = "(3+4)*5/35-61";
+		String s = "2+(3+4)*5/35-61";
 		String[] str = 	s.split("\\d+");
 		int index = 0;
 		for (int i = 0; i < str.length - 1; i++) {
@@ -31,10 +31,14 @@ public class PolandNotation {
 			if (list.size() == 0 && idx1 != 0) {
 				list.add(s.substring(0, idx1));
 			}
-//			list.add(str[i].);
+			for (char ch : str[i].toCharArray()) {
+				list.add(String.valueOf(ch));
+			}
 			list.add(s.substring(idx1 + str[i].length(), idx2));
 			if (i == str.length - 2) {
-				list.add(str[i+1]);
+				for (char ch : str[i+1].toCharArray()) {
+					list.add(String.valueOf(ch));
+				}
 				list.add(s.substring(idx2 + str[i+1].length(), s.length()));
 			}
 			index = idx1 + str[i].length();
