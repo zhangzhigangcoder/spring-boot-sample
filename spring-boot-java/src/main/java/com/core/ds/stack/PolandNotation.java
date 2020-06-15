@@ -1,5 +1,8 @@
 package com.core.ds.stack;
 
+import static org.hamcrest.CoreMatchers.containsString;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Stack;
@@ -11,10 +14,35 @@ import java.util.Stack;
 public class PolandNotation {
 
 	public static void main(String[] args) {
-		// (3+4)*5/35-6 -> "3 4 + 5 * 35 / 6 -"
-		String suffixExpression = "3 4 + 5 * 35 / 6 -";
-		int res = calculate(suffixExpression);
-		System.out.println(res);
+//		// (3+4)*5/35-6 -> "3 4 + 5 * 35 / 6 -"
+//		String suffixExpression = "3 4 + 5 * 35 / 6 -";
+//		int res = calculate(suffixExpression);
+//		System.out.println(res);
+		List<String> list = new ArrayList<String>();
+		String s = "(3+4)*5/35-61";
+		String[] str = 	s.split("\\d+");
+		int index = 0;
+		for (int i = 0; i < str.length - 1; i++) {
+			if ("".equals(str[i])) {
+				continue;
+			}
+			int idx1 = s.indexOf(str[i], index);
+			int idx2 = s.indexOf(str[i+1], idx1 + 1);
+			if (list.size() == 0 && idx1 != 0) {
+				list.add(s.substring(0, idx1));
+			}
+//			list.add(str[i].);
+			list.add(s.substring(idx1 + str[i].length(), idx2));
+			if (i == str.length - 2) {
+				list.add(str[i+1]);
+				list.add(s.substring(idx2 + str[i+1].length(), s.length()));
+			}
+			index = idx1 + str[i].length();
+		}
+		list.forEach(e -> {
+			System.out.println(e);
+		});
+		
 	}
 	
 	/**
@@ -66,5 +94,7 @@ public class PolandNotation {
 		}
 		return res;
 	}
+	
+	
 	
 }
