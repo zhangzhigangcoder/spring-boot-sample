@@ -1,4 +1,4 @@
-package com.core.ds.queue;
+package com.core.data.struct.queue;
 
 import java.util.Scanner;
 
@@ -6,10 +6,10 @@ import java.util.Scanner;
  * 循环数组实现队列
  *
  */
-public class CircleArrayQueueDemo {
+public class CircleArrayQueueDemo2 {
 
 	public static void main(String[] args) {
-		CircleArrayQueue queue = new CircleArrayQueue(4);
+		CircleArrayQueue2 queue = new CircleArrayQueue2(3);
 		char key = ' ';
 		Scanner scanner = new Scanner(System.in);
 		boolean loop = true;
@@ -52,7 +52,7 @@ public class CircleArrayQueueDemo {
 	}
 }
 
-class CircleArrayQueue {
+class CircleArrayQueue2 {
 	// 队列最大容量
 	private int maxSize;
 	// 调整1
@@ -60,29 +60,29 @@ class CircleArrayQueue {
 	// 初始化为0
 	private int front;
 	// 调整2
-	// 队尾， 指向最后一个元素后面一个位置，希望后面空出一个位置
-	// 初始化为0
+	// 队尾， 指向最后一个元素
+	// 初始化为-1
 	private int rear;
 	// 队列数组
 	private int[] arr;
 
-	public CircleArrayQueue(int arrMaxSize) {
+	public CircleArrayQueue2(int arrMaxSize) {
 		this.maxSize = arrMaxSize;
 		arr = new int[this.maxSize];
+		rear = -1;
 	}
 
 	// 判断队列是否满
-	private boolean isFull() {
+	public boolean isFull() {
 		// 调整3
 		// 因为可能会出现 rear < front 情况
-		// 这里体现了rear是指向最后一个元素的后一个位置
-		return (this.rear + 1) % this.maxSize == this.front;
+		return this.rear != -1 && (this.rear + 1) % this.maxSize == this.front;
 	}
 
 	// 判断队列是否为空
-	private boolean isEmpty() {
+	public boolean isEmpty() {
 		// 这里体现了rear是指向最后一个元素的后一个位置
-		return this.rear == this.front;
+		return (this.rear + 1) % this.maxSize == this.front;
 	}
 
 	// 添加数据
@@ -92,8 +92,8 @@ class CircleArrayQueue {
 			return;
 		}
 		// 调整4 先赋值，后环形向后移动
-		arr[rear] = ele;
 		rear = (rear + 1) % maxSize;
+		arr[rear] = ele;
 	}
 
 	// 获取数据
@@ -121,7 +121,7 @@ class CircleArrayQueue {
 	
 	// 求出当前队列有效数据个数
 	private int size() {
-		return (rear + maxSize - front) % maxSize;
+		return (rear + 1 + maxSize - front) % maxSize;
 	}
 
 	// 显示对头数据

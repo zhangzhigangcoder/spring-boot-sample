@@ -1,4 +1,4 @@
-package com.core.ds.linkedlist;
+package com.core.data.struct.linkedlist;
 
 /**
  * 单向环形链表模拟约瑟夫问题

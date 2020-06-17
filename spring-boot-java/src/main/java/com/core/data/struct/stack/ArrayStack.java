@@ -1,4 +1,4 @@
-package com.core.ds.stack;
+package com.core.data.struct.stack;
 
 /**
  * 数组模拟栈操作

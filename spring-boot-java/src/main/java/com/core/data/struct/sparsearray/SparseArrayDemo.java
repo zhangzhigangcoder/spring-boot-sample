@@ -1,4 +1,4 @@
-package com.core.ds.sparsearray;
+package com.core.data.struct.sparsearray;
 
 public class SparseArrayDemo {
 

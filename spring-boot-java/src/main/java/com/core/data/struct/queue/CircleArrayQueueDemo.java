@@ -1,15 +1,15 @@
-package com.core.ds.queue;
+package com.core.data.struct.queue;
 
 import java.util.Scanner;
 
 /**
- * 数组实现队列
+ * 循环数组实现队列
  *
  */
-public class ArrayQueueDemo {
+public class CircleArrayQueueDemo {
 
 	public static void main(String[] args) {
-		ArrayQueue queue = new ArrayQueue(3);
+		CircleArrayQueue queue = new CircleArrayQueue(4);
 		char key = ' ';
 		Scanner scanner = new Scanner(System.in);
 		boolean loop = true;
@@ -52,30 +52,36 @@ public class ArrayQueueDemo {
 	}
 }
 
-class ArrayQueue {
+class CircleArrayQueue {
 	// 队列最大容量
 	private int maxSize;
-	// 队头，指向第一个元素的前一个位置
+	// 调整1
+	// 对头，指向第一个元素位置
+	// 初始化为0
 	private int front;
-	// 队尾，指向最后一个元素位置
+	// 调整2
+	// 队尾， 指向最后一个元素后面一个位置，希望后面空出一个位置
+	// 初始化为0
 	private int rear;
 	// 队列数组
 	private int[] arr;
 
-	public ArrayQueue(int arrMaxSize) {
+	public CircleArrayQueue(int arrMaxSize) {
 		this.maxSize = arrMaxSize;
 		arr = new int[this.maxSize];
-		this.front = -1;
-		this.rear = -1;
 	}
 
-	// 判断队列是否满(当指向最后一个位置时，前面的元素有可能都被取出了)
+	// 判断队列是否满
 	private boolean isFull() {
-		return this.rear == this.maxSize - 1;
+		// 调整3
+		// 因为可能会出现 rear < front 情况
+		// 这里体现了rear是指向最后一个元素的后一个位置
+		return (this.rear + 1) % this.maxSize == this.front;
 	}
 
-	// 判断队列是否为空(有可能都指向最后一个元素位置)
+	// 判断队列是否为空
 	private boolean isEmpty() {
+		// 这里体现了rear是指向最后一个元素的后一个位置
 		return this.rear == this.front;
 	}
 
@@ -85,8 +91,9 @@ class ArrayQueue {
 			System.out.println("队列已满，不能添加");
 			return;
 		}
-		rear++; // 这里体现了rear是指向最后一个元素位置的
+		// 调整4 先赋值，后环形向后移动
 		arr[rear] = ele;
+		rear = (rear + 1) % maxSize;
 	}
 
 	// 获取数据
@@ -94,8 +101,10 @@ class ArrayQueue {
 		if (isEmpty()) {
 			throw new RuntimeException("队列为空");
 		}
-		front++; // 这里体现了front是指向第一个元素前一个位置的
-		return arr[front];
+		// 调整5 先取值，后环形向后移动
+		int value = arr[front];
+		front = (front + 1) % maxSize;
+		return value;
 	}
 
 	// 显示队列所有数据
@@ -104,9 +113,15 @@ class ArrayQueue {
 			System.out.println("队列为空");
 			return;
 		}
-		for (int i = 0; i < arr.length; i++) {
-			System.out.printf("arr[%d]=%d\n", i, arr[i]);
+		// 调整6
+		for (int i = front; i < front + size(); i++) {
+			System.out.printf("arr[%d]=%d\n", i % maxSize, arr[i % maxSize]);
 		}
+	}
+	
+	// 求出当前队列有效数据个数
+	private int size() {
+		return (rear + maxSize - front) % maxSize;
 	}
 
 	// 显示对头数据
@@ -114,6 +129,6 @@ class ArrayQueue {
 		if (isEmpty()) {
 			throw new RuntimeException("队列为空");
 		}
-		return arr[front + 1];
+		return arr[front];
 	}
 }

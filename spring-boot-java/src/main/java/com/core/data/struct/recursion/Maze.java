@@ -1,4 +1,4 @@
-package com.core.ds.recursion;
+package com.core.data.struct.recursion;
 
 /**
  * 使用递归解决迷宫问题
@@ -38,6 +38,7 @@ public class Maze {
 	 * 		1：墙
 	 * 		2：已经走过，是通路
 	 * 		3：已经走过，但是走不通 
+	 * 4. 查找策略： 下 -> 右 -> 上 -> 左
 	 * @param map 地图
 	 * @param (startRow, startCol) 起始点
 	 * @param (endRow, endCol) 出口
@@ -95,6 +96,4 @@ public class Maze {
 		map[5][2] = 1;
 		return map;
 	}
-	
-	
 }

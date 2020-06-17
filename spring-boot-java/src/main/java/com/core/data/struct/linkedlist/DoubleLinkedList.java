@@ -1,4 +1,4 @@
-package com.core.ds.linkedlist;
+package com.core.data.struct.linkedlist;
 
 /**
  * 双向链表

@@ -1,4 +1,4 @@
-package com.core.ds.hashmap;
+package com.core.data.struct.hashmap;
 
 public class HashMap<K,V>
 //	extends AbstractMap<K,V>

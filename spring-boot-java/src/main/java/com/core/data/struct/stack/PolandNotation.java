@@ -1,4 +1,4 @@
-package com.core.ds.stack;
+package com.core.data.struct.stack;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -1,4 +1,4 @@
-package com.core.ds.linkedlist;
+package com.core.data.struct.linkedlist;
 
 import java.util.Stack;
 
