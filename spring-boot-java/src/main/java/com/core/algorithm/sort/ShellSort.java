@@ -7,21 +7,21 @@ import java.util.Arrays;
  * 平均 时间复杂度为 O(nlog2_n) 
  * 最坏时间复杂度为O(n^s) 1<s<2 s是分组组数
  * 
- * 80000个数据执行时间：
- * 	交换法-13ms 
- * 	移位法-12ms
+ * 80000个数据执行时间：12ms
+ * 800000个数据执行时间：130-150ms
+ * 8000000个数据执行时间：1700ms
  */
 public class ShellSort {
 
 	public static void main(String[] args) {
-		 int[] arr = {8, 9, 1, 7, 2, 3,5, 4, 6, 0};
-//		int[] arr = new int[800000];
-//		for (int i = 0; i < 800000; i++) {
-//			arr[i] = (int) (Math.random() * 8000_0000);
-//		}
-//		long start = System.currentTimeMillis();
-		 shift(arr);
-//		System.out.println(System.currentTimeMillis() - start);
+//		 int[] arr = {8, 9, 1, 7, 2, 3,5, 4, 6, 0};
+		int[] arr = new int[8000000];
+		for (int i = 0; i < 8000000; i++) {
+			arr[i] = (int) (Math.random() * 8000_0000);
+		}
+		long start = System.currentTimeMillis();
+		shift(arr);
+		System.out.println(System.currentTimeMillis() - start);
 	}
 
 	/**
@@ -68,6 +68,6 @@ public class ShellSort {
 				arr[insertIndex] = insertVal;
 			}
 		}
-		System.out.println(Arrays.toString(arr));
+//		System.out.println(Arrays.toString(arr));
 	}
 }
