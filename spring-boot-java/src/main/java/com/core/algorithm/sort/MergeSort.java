@@ -5,32 +5,32 @@ import java.util.Arrays;
 /**
  * 归并排序 
  * 	平均 时间复杂度为 O(nlog2_n) 
- * 	最坏时间复杂度为O(n^2)
+ * 	最坏时间复杂度为O(nlog2_n)
  * 
- * 80000个数据执行时间：12-22ms
- * 800000个数据执行时间：80-90ms
- * 800000个数据执行时间：900ms
+ * 8_0000个数据执行时间：11ms
+ * 80_0000个数据执行时间：90ms
+ * 800_0000个数据执行时间：990ms
  */
 public class MergeSort {
 
 	public static void main(String[] args) {
 		
-		int[] arr = {11, 12, 10, 3, 4}; 
+//		int[] arr = {11, 12, 10, 3, 4}; 
+		int[] arr = new int[80000000];
 		int[] temp = new int[arr.length];
-//		int[] arr = new int[8000000];
-//		for (int i = 0; i < 8000000; i++) {
-//			arr[i] = (int) (Math.random() * 8000_0000);
-//		}
-//		long start = System.currentTimeMillis();
+		for (int i = 0; i < 80000000; i++) {
+			arr[i] = (int) (Math.random() * 8000_0000);
+		}
+		long start = System.currentTimeMillis();
 		sort(arr, 0, arr.length - 1, temp);
-//		System.out.println(System.currentTimeMillis() - start);
+		System.out.println(System.currentTimeMillis() - start);
 		System.out.println("排序结果：" + Arrays.toString(arr));
 	}
 
 	public static void sort(int[] arr, int left, int right, int[] temp) {
 		if (left < right) {
-			int mid = (left + right) / 2;
-			System.out.println("left-mid-right:" + left + "-" + mid + "-" + right);
+			// 分
+			int mid = (left + right) / 2; 
 			// 向左递归进行分解
 			sort(arr, left, mid, temp);
 			// 向右递归分解
