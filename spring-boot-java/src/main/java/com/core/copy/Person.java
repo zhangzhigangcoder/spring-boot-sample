@@ -3,6 +3,8 @@ package com.core.copy;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.core.data.struct.tree.BinaryTree;
+
 public class Person implements Cloneable {
 	
 	private String name;

@@ -19,9 +19,13 @@ public class BubbleSort {
 		upgradeSort(arr);
 		System.out.println(System.currentTimeMillis() - start);
 	}
+	
+	
 
 	/**
 	 * 基础版本
+	 * 
+	 * 
 	 */
 	public static void baseSort(int[] arr) {
 		for (int i = 0; i < arr.length - 1; i++) {

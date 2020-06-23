@@ -1,5 +1,7 @@
 package com.core.data.struct.stack;
 
+import com.core.data.struct.tree.BinaryTree;
+
 /**
  * 数组模拟栈操作
  *
