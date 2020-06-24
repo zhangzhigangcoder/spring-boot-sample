@@ -1,14 +1,11 @@
 package com.core.data.struct.tree;
 
 /**
- * 数组模拟栈操作
+ * 二叉树
  *
  */
 public class BinaryTree {
 	private Node root;
-
-	public BinaryTree() {
-	}
 
 	public void setRoot(Node root) {
 		this.root = root;
@@ -50,6 +47,21 @@ public class BinaryTree {
 		return null;
 	}
 
+	/**
+	 * 删除节点
+	 * @param no
+	 */
+	public void delete(int no) {
+		if (null == root) {
+			return;
+		}
+		if (no == root.no) {
+			root = null;
+			return;
+		}
+		root.delete(no);
+	}
+	
 	/**
 	 * 前序遍历
 	 */
@@ -192,6 +204,38 @@ public class BinaryTree {
 		}
 
 		/**
+		 * 删除节点
+		 * @param no
+		 * @return
+		 */
+		public boolean delete(int no) {
+			// 删除左子节点
+			if (null != this.left && this.left.no == no) {
+				this.left = null;
+				return true;
+			}
+			
+			// 删除左子节点
+			if (null != this.right && this.right.no == no) {
+				this.right = null;
+				return true;
+			}
+			
+			boolean delFlag = false;
+			
+			// 递归删除左子树
+			if (null != this.left) {
+				delFlag = this.left.delete(no);
+			}
+			
+			// 递归删除右子树
+			if (!delFlag && null != this.right) {
+				delFlag = this.right.delete(no);
+			}
+			return delFlag;
+		}
+		
+		/**
 		 * 前序遍历
 		 */
 		public void preOrder() {
@@ -240,31 +284,5 @@ public class BinaryTree {
 			builder.append("]");
 			return builder.toString();
 		}
-
 	}
-
-	public static void main(String[] args) {
-		BinaryTree tree = new BinaryTree();
-		Node root = new Node(1, "宋江");
-		Node n2 = new Node(2, "吴用");
-		Node n3 = new Node(3, "卢俊义");
-		Node n4 = new Node(4, "林冲");
-
-		tree.setRoot(root);
-		root.setLeft(n2);
-		root.setRight(n3);
-		n3.setRight(n4);
-
-		System.out.println("前序遍历");
-		tree.preOrder();
-		
-		System.out.println("中序遍历");
-		tree.infixOrder();
-		
-		System.out.println("后序遍历");
-		tree.postOrder();
-		
-		System.out.println(tree.preOrderSearch(4));
-	}
-
 }
