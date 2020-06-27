@@ -45,14 +45,12 @@ public class HuffmanCode {
     		String strByte;
     		if (i+8 > sb.length()) { // 不够8位
     			strByte = sb.substring(i);
+    			// 最后一个数组元素不是有效数组，表示最后一个有效元素占几位
+    			huffmanCodeBytes[len + 1] = (byte) strByte.length(); 
     		} else {
     			strByte = sb.substring(i, i + 8);
     		}
     		huffmanCodeBytes[index++] = (byte) Integer.parseInt(strByte, 2); 
-    		// 最后一个数组元素不是有效数组，表示最后一个有效元素占几位
-    		if (i+8 > sb.length()) {
-    			huffmanCodeBytes[index] = (byte) (sb.length() - i); 
-    		}
     	}
     	return huffmanCodeBytes;
     }
