@@ -1,9 +1,7 @@
-package com.core.algorithm.appliance.huffmancode;
-
-import java.util.Arrays;
+package com.core.data.struct.tree;
 
 /**
- * 赫夫曼编码   
+ * 赫夫曼编码测试  
  * @author zhangzhigang
  *
  */
@@ -17,10 +15,10 @@ public class HuffmanCodeTest {
 //		byte[] decodeBytes = HuffmanCode.decode(encodeBytes);
 //		System.out.println(new String(decodeBytes));
 		// C:\Users\qw\Pictures\1.jpg
-//		String srcFile = "C:\\Users\\qw\\Pictures\\1.jpg";
-//		String dstFile = "C:\\Users\\qw\\Pictures\\11.zip";
-//		String dstFile2 = "C:\\Users\\qw\\Pictures\\12.jpg";
-//		HuffmanCode.zipFile(srcFile, dstFile);
+		String srcFile = "/Users/zhangzhigang/Desktop/Effective Java（中文版第3版）.pdf";
+		String dstFile = "/Users/zhangzhigang/Desktop/5.zip";
+		String dstFile2 = "/Users/zhangzhigang/Desktop/55.pdf";
+		HuffmanCode.zipFile(srcFile, dstFile);
 //		HuffmanCode.unZipFile(dstFile, dstFile2);
 	}
 	

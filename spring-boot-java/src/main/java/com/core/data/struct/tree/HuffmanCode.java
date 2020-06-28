@@ -1,7 +1,6 @@
-package com.core.algorithm.appliance.huffmancode;
+package com.core.data.struct.tree;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -15,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 赫夫曼编码
+ * 赫夫曼树应用-赫夫曼编码
  *
  */
 public class HuffmanCode {
