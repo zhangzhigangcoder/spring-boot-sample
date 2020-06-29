@@ -14,5 +14,11 @@ public class BinarySortTreeTest {
 			binarySortTree.add(new Node(arr[i]));
 		}
 		binarySortTree.infixOrder();
+		binarySortTree.delNode(2);
+		binarySortTree.delNode(5);
+		binarySortTree.delNode(9);
+		binarySortTree.delNode(12);
+		System.out.println();
+		binarySortTree.infixOrder();
 	}
 }

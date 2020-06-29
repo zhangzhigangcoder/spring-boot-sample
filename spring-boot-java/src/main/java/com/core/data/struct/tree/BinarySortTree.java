@@ -24,6 +24,62 @@ public class BinarySortTree {
 	}
 	
 	/**
+	 * 查找要删除节点
+	 * @param value
+	 * @return
+	 */
+	public Node search(int value) {
+		if (null == root) {
+			return null;
+		} else {
+			return root.search(value);
+		}
+	}
+	
+	/**
+	 * 查找要删除节点父节点
+	 * @param value
+	 * @return
+	 */
+	public Node searchParent(int value) {
+		if (null == root) {
+			return null;
+		} else {
+			return root.searchParent(value);
+		}
+	}
+	
+	/**
+	 * 删除节点
+	 * @param value
+	 */
+	public void delNode(int value) {
+		if (null == root) {
+			return;
+		} else {
+			// 查找要删除节点
+			Node targetNode = search(value);
+			if (null == targetNode) {
+				return;
+			}
+			// 说明要删除的就是root节点
+			if (null == root.left && null == root.right) {
+				root = null;
+				return;
+			}
+			Node parent = searchParent(value);
+			// 1.1 删除叶子节点
+			if (null == targetNode.left && null == targetNode.right) {
+				if (null != parent.left && parent.left.value == value) {
+					parent.left = null;
+				} else if (null != parent.right && parent.right.value == value) {
+					parent.right = null;
+				}
+			}
+		}
+	}
+	
+	/**
 	 * 中序遍历
 	 */
 	public void infixOrder() {
@@ -86,6 +142,45 @@ public class BinarySortTree {
 					this.right.add(node);
 				}
 			}
+		}
+		
+		/**
+		 * 查找要删除的节点
+		 * @param value
+		 * @return
+		 */
+		public Node search(int value) {
+			if (this.value == value) {
+				return this;
+			} else if (value < this.value) {
+				if (null == this.left) {
+					return null;
+				}
+				return this.left.search(value);
+			} else {
+				if (null == this.right) {
+					return null;
+				}
+				return this.right.search(value);
+			}
+		}
+		
+		/**
+		 * 查找要删除节点的父节点
+		 * @param value
+		 * @return
+		 */
+		public Node searchParent(int value) {
+			if ((null != this.left && this.left.value == value) || (null != this.right && this.right.value == value)) {
+				return this;
+			} else {
+				if (value < this.value && null != this.left) {
+					return this.left.searchParent(value);
+				} else if (value >= this.value && null != this.right) {
+					return this.right.searchParent(value);
+				}
+			}
+			return null;
 		}
 		
 		/**
