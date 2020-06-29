@@ -61,6 +61,11 @@ public class HuffmanCode {
 		}
 	}
 	
+	/**
+	 * 解压文件
+	 * @param srcFile 
+	 * @param dstFile
+	 */
 	@SuppressWarnings("unchecked")
 	public static void unZipFile(String srcFile, String dstFile) {
 		InputStream is = null;

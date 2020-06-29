@@ -10,69 +10,19 @@ public class BinarySortTree {
 	public void setRoot(Node root) {
 		this.root = root;
 	}
-	
-	/**
-	 * 前序查找
-	 * @param no
-	 * @return
-	 */
-	public Node preOrderSearch(int no) {
-		if (null != root) {
-			return root.preOrderSearch(no);
-		}
-		return null;
-	}
-	
-	/**
-	 * 中序查找
-	 * @param no
-	 * @return
-	 */
-	public Node infixOrderSearch(int no) {
-		if (null != root) {
-			return root.infixOrderSearch(no);
-		}
-		return null;
-	}
-	
-	/**
-	 * 后序查找
-	 * @param no
-	 * @return
-	 */
-	public Node postOrderSearch(int no) {
-		if (null != root) {
-			return root.postOrderSearch(no);
-		}
-		return null;
-	}
 
 	/**
-	 * 删除节点
-	 * @param no
+	 * 添加节点
+	 * @param node
 	 */
-	public void delete(int no) {
+	public void add(Node node) {
 		if (null == root) {
-			return;
+			root = node;
+		} else {
+			root.add(node);
 		}
-		if (no == root.no) {
-			root = null;
-			return;
-		}
-		root.delete(no);
 	}
 	
-	/**
-	 * 前序遍历
-	 */
-	public void preOrder() {
-		if (null == this.root) {
-			System.out.println("空树，不能遍历");
-			return;
-		}
-		this.root.preOrder();
-	}
-
 	/**
 	 * 中序遍历
 	 */
@@ -85,28 +35,15 @@ public class BinarySortTree {
 	}
 
 	/**
-	 * 后序遍历
-	 */
-	public void postOrder() {
-		if (null == this.root) {
-			System.out.println("空树，不能遍历");
-			return;
-		}
-		this.root.postOrder();
-	}
-
-	/**
 	 * 节点
 	 */
 	static class Node {
-		private int no;
-		private String name;
+		private int value;
 		private Node left;
 		private Node right;
 
-		public Node(int no, String name) {
-			this.no = no;
-			this.name = name;
+		public Node(int value) {
+			this.value = value;
 		}
 
 		public Node getLeft() {
@@ -126,128 +63,31 @@ public class BinarySortTree {
 		}
 		
 		/**
-		 * 前序查找
-		 * @param no
-		 * @return
+		 * 添加节点
+		 * @param node
 		 */
-		public Node preOrderSearch(int no) {
-			// 当前节点
-			if (this.no == no) {
-				return this;
+		public void add(Node node) {
+			if (null == node) {
+				return;
 			}
-			// 左遍历
-			Node resNode = null;
-			if (null != this.left) {
-				resNode = this.left.preOrderSearch(no);
+			// 小于当前值，放在左边
+			if (node.value < this.value) {
+				if (null == this.left) {
+					this.left = node;
+				} else {
+					// 递归左树
+					this.left.add(node);
+				}
+			} else { // 大于等于当前值，放在右边
+				if (this.right == null) {
+					this.right = node;
+				} else {
+					// 递归右树
+					this.right.add(node);
+				}
 			}
-			if (null != resNode) {
-				return resNode;
-			}
-			// 右遍历
-			if (null != this.right) {
-				resNode = this.right.preOrderSearch(no);
-			}
-			return resNode;
 		}
 		
-		/**
-		 * 中序查找
-		 * @param no
-		 * @return
-		 */
-		public Node infixOrderSearch(int no) {
-			// 左遍历
-			Node resNode = null;
-			if (null != this.left) {
-				resNode = this.left.preOrderSearch(no);
-			}
-			if (null != resNode) {
-				return resNode;
-			}
-			// 当前节点
-			if (this.no == no) {
-				return this;
-			}
-			// 右遍历
-			if (null != this.right) {
-				resNode = this.right.preOrderSearch(no);
-			}
-			return resNode;
-		}
-		
-		/**
-		 * 后序查找
-		 * @param no
-		 * @return
-		 */
-		public Node postOrderSearch(int no) {
-			// 左遍历
-			Node resNode = null;
-			if (null != this.left) {
-				resNode = this.left.preOrderSearch(no);
-			}
-			if (null != resNode) {
-				return resNode;
-			}
-			// 右遍历
-			if (null != this.right) {
-				resNode = this.right.preOrderSearch(no);
-			}
-			if (null != resNode) {
-				return resNode;
-			}
-			// 当前节点
-			if (this.no == no) {
-				return this;
-			}
-			return resNode;
-		}
-
-		/**
-		 * 删除节点
-		 * @param no
-		 * @return
-		 */
-		public boolean delete(int no) {
-			// 删除左子节点
-			if (null != this.left && this.left.no == no) {
-				this.left = null;
-				return true;
-			}
-			
-			// 删除左子节点
-			if (null != this.right && this.right.no == no) {
-				this.right = null;
-				return true;
-			}
-			
-			boolean delFlag = false;
-			
-			// 递归删除左子树
-			if (null != this.left) {
-				delFlag = this.left.delete(no);
-			}
-			
-			// 递归删除右子树
-			if (!delFlag && null != this.right) {
-				delFlag = this.right.delete(no);
-			}
-			return delFlag;
-		}
-		
-		/**
-		 * 前序遍历
-		 */
-		public void preOrder() {
-			System.out.println(this);
-			if (null != this.left) {
-				this.left.preOrder();
-			}
-			if (null != this.right) {
-				this.right.preOrder();
-			}
-		}
-
 		/**
 		 * 中序遍历
 		 */
@@ -261,26 +101,11 @@ public class BinarySortTree {
 			}
 		}
 
-		/**
-		 * 后序遍历
-		 */
-		public void postOrder() {
-			if (null != this.left) {
-				this.left.postOrder();
-			}
-			if (null != this.right) {
-				this.right.postOrder();
-			}
-			System.out.println(this);
-		}
-
 		@Override
 		public String toString() {
 			StringBuilder builder = new StringBuilder();
-			builder.append("Node [no=");
-			builder.append(no);
-			builder.append(", name=");
-			builder.append(name);
+			builder.append("Node [value=");
+			builder.append(value);
 			builder.append("]");
 			return builder.toString();
 		}

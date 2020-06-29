@@ -15,10 +15,10 @@ public class HuffmanCodeTest {
 //		byte[] decodeBytes = HuffmanCode.decode(encodeBytes);
 //		System.out.println(new String(decodeBytes));
 		// C:\Users\qw\Pictures\1.jpg
-		String srcFile = "/Users/zhangzhigang/Desktop/Effective Java（中文版第3版）.pdf";
-		String dstFile = "/Users/zhangzhigang/Desktop/5.zip";
-		String dstFile2 = "/Users/zhangzhigang/Desktop/55.pdf";
-		HuffmanCode.zipFile(srcFile, dstFile);
+		String srcFile = "C:\\Users\\qw\\Pictures\\1.jpg";
+		String dstFile = "C:\\Users\\qw\\Pictures\\11.zip";
+		String dstFile2 = "C:\\Users\\qw\\Pictures\\12.jpg";
+//		HuffmanCode.zipFile(srcFile, dstFile);
 //		HuffmanCode.unZipFile(dstFile, dstFile2);
 	}
 	
