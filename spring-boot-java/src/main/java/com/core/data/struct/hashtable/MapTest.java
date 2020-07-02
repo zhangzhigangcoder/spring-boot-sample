@@ -1,7 +1,5 @@
 package com.core.data.struct.hashtable;
 
-import com.core.copy.Person;
-
 public class MapTest {
 
 	public static void main(String[] args) {
@@ -9,8 +7,5 @@ public class MapTest {
 //		map.put("1", "2");
 ////		System.out.println(map.get("1"));
 //		map.entrySet().forEach(p -> System.out.println(p.getKey() + "-" + p.getValue()));
-		Person p = new Person("111", 222);
-		System.out.println(p.hashCode());
-		System.out.println(System.identityHashCode(p));
 	}
 }
