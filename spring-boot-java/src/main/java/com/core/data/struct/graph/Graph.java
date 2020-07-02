@@ -2,10 +2,11 @@ package com.core.data.struct.graph;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
- * 图测试
+ * 图
  *
  */
 public class Graph {
@@ -24,7 +25,7 @@ public class Graph {
 	 * 返回顶点个数
 	 * @return
 	 */
-	public int getNumOfVertex() {
+	private int getNumOfVertex() {
 		return vertexList.size();
 	}
 	
@@ -41,7 +42,7 @@ public class Graph {
 	 * @param v
 	 * @return
 	 */
-	public String getValByIndex(int v) {
+	private String getValByIndex(int v) {
 		return vertexList.get(v);
 	}
 	
@@ -70,13 +71,8 @@ public class Graph {
 	 * @param v 顶点下标
 	 * @return
 	 */
-	public int getFirstNeighbor(int v) {
-		for (int i = v + 1; i < vertexList.size(); i++) {
-			if (edges[v][i] == 1) {
-				return i;
-			}
-		}
-		return -1;
+	private int getFirstNeighbor(int v) {
+		return getNextNeighbor(v, v);
 	}
 	
 	/**
@@ -85,7 +81,7 @@ public class Graph {
 	 * @param v2 v1顶点的v2邻接点
 	 * @return
 	 */
-	public int getNextNeighbor(int v1, int v2) {
+	private int getNextNeighbor(int v1, int v2) {
 		for (int i = v2 + 1; i < vertexList.size(); i++) {
 			if (edges[v1][i] == 1) {
 				return i;
@@ -95,7 +91,9 @@ public class Graph {
 	}
 	
 	/**
-	 * 深度优先遍历算法
+	 * 对指定顶点深度优先遍历算法
+	 * Depth First Search
+	 * 
 	 * @param isVisited
 	 * @param v 顶点
 	 */
@@ -114,12 +112,60 @@ public class Graph {
 	}
 	
 	/**
-	 * 遍历所有顶点
+	 * 对所有顶点进行深度优先遍历
+	 * Depth First Search
+	 * 
 	 */
 	public void dfs() {
+		isVisited = new boolean[vertexList.size()];
 		for (int i = 0; i < getNumOfVertex(); i++) {
 			if (!isVisited[i]) {
 				dfs(isVisited, i);
+			}
+		}
+	}
+	
+	/**
+	 * 对指定节点进行广度优先遍历
+	 * @param isvisited
+	 * @param v
+	 */
+	private void bfs(boolean[] isvisited, int v) {
+		int h; // 队列头节点下标
+		int w; // 邻接顶点w
+		// 队列 记录节点访问顺序
+		LinkedList<Integer> queue = new LinkedList<>();
+		System.out.print(getValByIndex(v) + "->");
+		isvisited[v] = true;
+		queue.addLast(v); // 添加到队尾
+		while (!queue.isEmpty()) {
+			// 获取头节点
+			h = queue.removeFirst();
+			// 查找下一个邻接顶点索引
+			w = getFirstNeighbor(h);
+			while (-1 != w) {
+				if (!isvisited[w]) {
+					System.out.print(getValByIndex(w) + "->");
+					// 标记已经访问过
+					isvisited[w] = true;
+					// 入队尾
+					queue.addLast(w);
+				}
+				// 查找下一个邻接点
+				// 这里也是和深度优先算法不同的地方
+				w = getNextNeighbor(h, w);
+			}
+		}
+	}
+	
+	/**
+	 * 对所有节点进行广度优先遍历
+	 */
+	public void bfs() {
+		isVisited = new boolean[vertexList.size()];
+		for (int i = 0; i < getNumOfVertex(); i++) {
+			if (!isVisited[i]) {
+				bfs(isVisited, i);
 			}
 		}
 	}
@@ -132,8 +178,4 @@ public class Graph {
 			System.out.println(Arrays.toString(link));
 		}
 	}
-	
-	
-	
-	
 }
