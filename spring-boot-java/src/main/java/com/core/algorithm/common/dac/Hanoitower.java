@@ -2,14 +2,25 @@ package com.core.algorithm.common.dac;
 
 /**
  * 分治算法-汉诺塔
+ * 分： 每次将多个盘从逻辑上拆分为两个盘：最后一个看作一个盘，其余的看作一个盘
+ * 治：将逻辑上的第一个盘从a柱移动到b柱
+ * 将逻辑上第二个盘从a柱移动c柱
+ * 最后将逻辑上的第一个盘从b柱移动到c柱
  *
  */
 public class Hanoitower {
 
 	public static void main(String[] args) {
-		hanoiTower(2, 'A', 'B', 'C');
+		hanoiTower(3, 'A', 'B', 'C');
 	}
 	
+	/**
+	 * 将盘从a柱移动到c柱
+	 * @param num 盘的个数
+	 * @param a a柱
+	 * @param b b柱
+	 * @param c c柱
+	 */
 	public static void hanoiTower(int num, char a, char b, char c) {
 		// 如果只有一个盘
 		if (1 == num) {
