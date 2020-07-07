@@ -23,10 +23,13 @@ public class KeywordFilterUtil {
 				add("北京");
 				add("上海");
 				add("广州");
+				add("南京");
 				add("新疆乌鲁木齐");
 			}
 		};
-		System.out.println(addKeywords(keywords));
+		HashMap keysMap = addKeywords(keywords);
+		String str = "北京是中国首都";
+		System.out.println(isContentKeyWords(str, keysMap));
 	}
 
 
@@ -56,6 +59,7 @@ public class KeywordFilterUtil {
                     newWordHash.put("isEnd", "0");
                     nowhash.put(word, newWordHash);
                     nowhash = newWordHash;
+                    
                 }
                 //最后的关键词设置为结束
                 if (j == key.length() - 1) {
