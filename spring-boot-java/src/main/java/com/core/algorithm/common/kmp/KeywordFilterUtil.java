@@ -77,8 +77,10 @@ public class KeywordFilterUtil {
     @SuppressWarnings("rawtypes")
 	public static boolean isContentKeyWords(String txt,HashMap keysMap) {
         for (int i = 0; i < txt.length(); i++) {
-            int len = checkKeyWords(txt, i, 1,keysMap);
-            if (len > 0) { return true; }
+            int len = checkKeyWords(txt, i, 1, keysMap);
+            if (len > 0) { 
+            	return true; 
+            }
         }
         txt = null;
         return false;
