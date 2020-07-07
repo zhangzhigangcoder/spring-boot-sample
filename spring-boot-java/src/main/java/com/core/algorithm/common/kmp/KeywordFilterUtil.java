@@ -9,26 +9,31 @@ import java.util.Set;
 
 /**
  * 关键词过滤
- *
- */
+ * 优点：1. 前缀相同的多个词合并
+ * 2. 关键词用Map结构存储，查找效率更高
+ * 缺点：本质上也属于暴力匹配，不过关键的的前后缀重合度并不高，个人感觉用KMP对效率不会有明显提升
+ */ 
 public class KeywordFilterUtil {
 
 	/** 直接禁止的 */
 	private static int matchType = 2; // 1:最小长度匹配 2：最大长度匹配
 	
+	@SuppressWarnings("rawtypes")
 	public static void main(String[] args) {
 		List<String> keywords = new ArrayList<String>() {
 			private static final long serialVersionUID = 5885979316092126277L;
 			{
 				add("北京");
+				add("北京是");
 				add("上海");
-				add("广州");
+				add("广西");
 				add("南京");
 				add("新疆乌鲁木齐");
 			}
 		};
 		HashMap keysMap = addKeywords(keywords);
-		String str = "北京是中国首都";
+		System.out.println(keysMap);
+		String str = "广广东是中国一线城市";
 		System.out.println(isContentKeyWords(str, keysMap));
 	}
 
