@@ -1,7 +1,5 @@
 package com.core.algorithm.common.prim;
 
-import java.util.Arrays;
-
 /**
  * 普利姆算法-解决修路问题
  *
@@ -43,8 +41,11 @@ public class Prim {
 		}
 		
 		public void showGraph(MGraph graph) {
-			for (int[] link : graph.weight) {
-				System.out.println(Arrays.toString(link));
+			for (int i = 0; i < graph.verxs; i++) {
+				for (int j = 0; j < graph.verxs; j++) {
+					System.out.printf("%12d", graph.weight[i][j]);
+				}
+				System.out.println();
 			}
 		}
 		
@@ -57,7 +58,7 @@ public class Prim {
 			int visited[] = new int[graph.verxs]; // 标记顶点是否访问过
 			visited[v] = 1;
 			int h1 = -1, h2 = -1, minWeight = 10000;
-			// 因为有graph.verxs顶点，普利姆算法结束后，会有graph.verxs-1个边
+			// 因为有graph.verxs个顶点，普利姆算法结束后，会有graph.verxs-1个边
 			for (int k = 1; k < graph.verxs; k++) {
 				// 遍历整个图，查找符合条件的顶点和边
 				for (int i = 0; i < graph.verxs; i++) {
