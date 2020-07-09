@@ -7,7 +7,7 @@ import java.util.Arrays;
  * 
  */
 public class Dijkstra {
-	private static final int INF = 65535;
+	private static final int N = 65535;
 	private char[] vertexs; // 顶点数组
 	private int[][] matrix; // 邻接矩阵
 	private VisitedVertex vv; // 已经访问顶点集合
@@ -61,7 +61,7 @@ public class Dijkstra {
 			this.already = new int[length];
 			this.preVertexIdx = new int[length];
 			this.distance = new int[length];
-			Arrays.fill(distance, INF);
+			Arrays.fill(distance, N);
 			this.distance[index] = 0; // 设置出发顶点距离为0
 			this.already[index] = 1; // 设置出发顶点已被访问
 		}
@@ -129,13 +129,13 @@ public class Dijkstra {
 	public static void main(String[] args) {
 		char[] vertexs = {'A', 'B', 'C', 'D', 'E', 'F', 'G'};
 		int[][] matrix = {
-					{ INF,   5,    7,     INF,   INF,   INF,    2   },
-					{ 5,     INF,  INF,   9,     INF,   INF,    3   },
-					{ 7,     INF,  INF,   INF,   8,     INF,    INF },
-					{ INF,   9,    INF,   INF,   INF,   4,      INF },
-					{ INF,   INF,  8,     INF,   INF,   5,      4   },
-					{ INF,   INF,  INF,   4,     5,     INF,    6   },
-					{ 2,     3,    INF,   INF,   4,     6,      INF }
+					{ N,  5,  7,  N,  N,  N,  2},
+					{ 5,  N,  N,  9,  N,  N,  3},
+					{ 7,  N,  N,  N,  8,  N,  N},
+					{ N,  9,  N,  N,  N,  4,  N},
+					{ N,  N,  8,  N,  N,  5,  4},
+					{ N,  N,  N,  4,  5,  N,  6},
+					{ 2,  3,  N,  N,  4,  6,  N}
 				};
 		Dijkstra dijkstra = new Dijkstra(vertexs, matrix); 
 //		dijkstra.showGraph();

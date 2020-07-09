@@ -10,7 +10,7 @@ public class Kruskal {
 	private int edgeNum; // 边的个数
 	private char[] vertexs; // 顶点数组
 	private int[][] matrix; // 邻接矩阵
-	private static final int INF = Integer.MAX_VALUE;
+	private static final int N = Integer.MAX_VALUE;
 	
 	public Kruskal(char[] vertexs, int[][] matrix) {
 		int vLen = vertexs.length;
@@ -25,7 +25,7 @@ public class Kruskal {
 		// 统计边
 		for (int i = 0; i < vLen; i++) {
 			for (int j = i + 1; j < vLen; j++) {
-				if (this.matrix[i][j] != INF) {
+				if (this.matrix[i][j] != N) {
 					edgeNum++;
 				}
 			}
@@ -55,7 +55,7 @@ public class Kruskal {
 		Edge[] edges = new Edge[edgeNum];
 		for (int i = 0; i < this.vertexs.length; i++) {
 			for (int j = i + 1; j < this.vertexs.length; j++) {
-				if (matrix[i][j] != INF) {
+				if (matrix[i][j] != N) {
 					edges[index++] = new Edge(vertexs[i], vertexs[j], matrix[i][j]);
 				}
 			}
@@ -153,13 +153,13 @@ public class Kruskal {
 	public static void main(String[] args) {
 		char[] vertexs = {'A', 'B', 'C', 'D', 'E', 'F', 'G'};
 		int[][] matrix = {
-					{ 0,   12,   INF,  INF,   INF,   16,   14  },
-					{ 12,  0,    10,   INF,   INF,   7,    INF },
-					{ INF, 10,   0,    3,     5,     6,    INF },
-					{ INF, INF,  3,    0,     4,     INF,  INF },
-					{ INF, INF,  5,    4,     0,     2,    8   },
-					{ 16,  7,    6,    INF,   2,     0,    9   },
-					{ 14,  INF,  INF,  INF,   8,     9,    0   }
+					{ 0,  12,  N,  N,  N,  16,  14},
+					{12,   0, 10,  N,  N,   7,   N},
+					{ N,  10,  0,  3,  5,   6,   N},
+					{ N,   N,  3,  0,  4,   N,   N},
+					{ N,   N,  5,  4,  0,   2,   8},
+					{16,   7,  6,  N,  2,   0,   9},
+					{14,   N,  N,  N,  8,   9,   0}
 				};
 		Kruskal kruskal = new Kruskal(vertexs, matrix);
 		kruskal.print();
