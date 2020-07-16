@@ -54,7 +54,7 @@ public class Greedy {
 			});
 		});
 
-		// 存放选择的电台集合
+		// 存放选择的电台
 		List<String> selects = new ArrayList<>();
 
 		Set<String> tempSet = new HashSet<>();
@@ -82,11 +82,12 @@ public class Greedy {
 			if (null != maxKey) {
 				// 记录最大key
 				selects.add(maxKey);
+				// 移除被选择的电台
+				broadcasts.remove(maxKey);
 				// 移除对应覆盖地区
 				allAreas.removeAll(broadcasts.get(maxKey));
 			}
 		}
 		System.out.println(selects);
 	}
-
 }

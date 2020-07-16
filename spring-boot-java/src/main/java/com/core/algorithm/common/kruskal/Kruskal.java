@@ -79,7 +79,8 @@ public class Kruskal {
 	
 	public void kruskal() {
 		int index = 0;
-		int[] ends = new int[edgeNum];
+		
+		int[] ends = new int[edgeNum]; // 核心 保存各个顶点终点 
 		
 		Edge[] rets = new Edge[edgeNum]; // 保存最小生成树
 		
@@ -87,6 +88,7 @@ public class Kruskal {
 		
 		Arrays.sort(edges); // 升序排序
 		
+		// 遍历所有边，直到覆盖所有顶点
 		for (int i = 0; i < edgeNum; i++) {
 			// 第i条边两顶点下标
 			int sIdx = getIndex(edges[i].start);
@@ -101,11 +103,11 @@ public class Kruskal {
 			}
 		}
 		
-//		for (Edge e : rets) {
-//			if (null != e) {
-//				System.out.println(e.start + " -> " + e.end + " : " + e.weight);
-//			}
-//		}
+		for (Edge e : rets) {
+			if (null != e) {
+				System.out.println(e.start + " -> " + e.end + " : " + e.weight);
+			}
+		}
 	}
 	
 	public void print() {
