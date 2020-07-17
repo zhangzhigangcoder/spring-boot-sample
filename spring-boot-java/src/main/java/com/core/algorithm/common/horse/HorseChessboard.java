@@ -81,29 +81,33 @@ public class HorseChessboard {
 	}
 	
 	public void traversalChessboard() {
+		// 若从起始位置开始计数，则step为1， 否则为0
 		int step = isCountFromStart ? 1 : 0;
 		traversalChessboard(startPoint.y, startPoint.x, step);
 	}
 	
 	private void traversalChessboard(int row, int column, int step) {
+		// 从起始位置计数 || (不从起始位置计数  && 起始位置必须是最后一步)
 		if (isCountFromStart || row != startPoint.y || column != startPoint.x || step == rows * cols) {
 			// 标记该位置是第几步
 			chessboard[row][column] = step; 
 			// 标记改位置已经访问过
 			visited[row * cols + column] = true; 
 		}
+		// 获取下一步可走位置
 		List<Point> nextPoints = next(column, row);
-		// 贪婪算法
+		// 贪婪算法，将下一步可走位置从小到大进行排序(根据下下次可走位置数量进行排序)
 		sort(nextPoints);
 		// 遍历所有可走位置
 		while(!nextPoints.isEmpty() && !finished) {
 			Point p = nextPoints.remove(0); 
-			if (!visited[p.y * cols + p.x] && (isCountFromStart ||  (step == rows * cols - 1 || !p.equals(startPoint)))) {
+			// 该位置未访问过 && (从起始位置计数 || (不从起始位置计数  && 起始位置必须是最后一步))
+			if (!visited[p.y * cols + p.x] && (isCountFromStart ||  (step + 1 == rows * cols || !p.equals(startPoint)))) {
 				traversalChessboard(p.y, p.x, step + 1);
 			}
 		}
 		if (!finished) {
-			if (step == rows * cols && (isCountFromStart || row == startPoint.y && column == startPoint.x)) {
+			if (step == rows * cols) {
 				finished = true;
 			} else {
 				// 重置状态， 便于回溯
@@ -113,6 +117,10 @@ public class HorseChessboard {
 		}
 	}
 	
+	/**
+	 * 根据下次可走位置数量对当前集合进行从小到大进行排序
+	 * @param ps
+	 */
 	private void sort(List<Point> ps) {
 		ps.sort(new Comparator<Point>() {
 			@Override
@@ -129,9 +137,9 @@ public class HorseChessboard {
 	}
 	
 	public static void main(String[] args) {
-		int row = 1, column = 6;
+		int row = 1, column = 1;
 		long start = System.currentTimeMillis();
-		HorseChessboard horseChessboard = new HorseChessboard(8, 8, new Point(column-1, row-1), true);
+		HorseChessboard horseChessboard = new HorseChessboard(8, 8, new Point(column-1, row-1), false);
 		horseChessboard.traversalChessboard();
 		horseChessboard.showChessboard();
 		System.out.println(System.currentTimeMillis() - start);
