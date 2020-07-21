@@ -49,8 +49,7 @@ public class TokenBucket {
 		for (Runnable run : taskList) {
 			// 获取不到，返回false
 			if (!limiter.tryAcquire(1000, TimeUnit.MILLISECONDS)) {
-				// 立即返回
-				// 或异步处理
+				// 立即返回或异步处理
 			} else {
 				// 直接处理
 				threadPool.execute(run);
