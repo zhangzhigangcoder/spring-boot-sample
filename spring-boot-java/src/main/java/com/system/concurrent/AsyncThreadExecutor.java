@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit;
 import org.apache.commons.lang3.concurrent.BasicThreadFactory;
 
 /**
- * 高并发-异步
+ * 高并发-异步-线程池
  * 
  * 自定义线程池
  * 
