@@ -21,7 +21,6 @@ public class HuffmanTree {
 		for (int val : arr) {
 			nodes.add(new Node(val));
 		}
-		
 		// 2. 将集合中节点按照霍夫曼规则创建成霍夫曼树
 		while (nodes.size() > 1) {
 			// 2.1 从小到大排序
@@ -81,6 +80,5 @@ public class HuffmanTree {
 			builder.append("]");
 			return builder.toString();
 		}
-		
 	}
 }

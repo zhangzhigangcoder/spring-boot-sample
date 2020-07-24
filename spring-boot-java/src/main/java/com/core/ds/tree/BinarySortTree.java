@@ -62,7 +62,7 @@ public class BinarySortTree {
 			if (null == targetNode) {
 				return;
 			}
-			// 说明要删除的就是root节点
+			// 要删除的就是root节点
 			if (null == root.left && null == root.right) {
 				root = null;
 				return;
@@ -78,6 +78,7 @@ public class BinarySortTree {
 			} 
 			// 1.2  删除有两颗子树的节点
 			else if (null != targetNode.left && null != targetNode.right) {
+				// 将右子树中最小值节点值作为targetNode节点值，并删除右子树最小值节点
 				targetNode.value = delRightTreeMin(targetNode.right);
 			}
 			// 1.3 删除只有一颗子树的节点

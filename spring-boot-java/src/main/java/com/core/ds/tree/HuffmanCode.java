@@ -118,6 +118,7 @@ public class HuffmanCode {
 		for (byte b : originalBytes) {
 			sb.append(huffmanCodes.get(b));
 		}
+		// 计算字节数
 		int len = (sb.length() + 7) / 8;
 		byte[] huffmanCodeBytes = new byte[len + 1];
 		int index = 0;
