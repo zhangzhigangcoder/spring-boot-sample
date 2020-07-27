@@ -171,5 +171,4 @@ public class KeywordFilterUtil {
         nowhash = null;
         return maxMatchRes;
     }
-    
 }
