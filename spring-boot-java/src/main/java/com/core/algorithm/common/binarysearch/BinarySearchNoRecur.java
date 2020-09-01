@@ -10,6 +10,8 @@ public class BinarySearchNoRecur {
 		int[] arr = {1, 3, 8, 10, 11, 67, 100};
 		int index = search(arr, 100);
 		System.out.println("index=" + index);
+		
+		
 	}
 	
 	/**
