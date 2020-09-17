@@ -4,7 +4,6 @@ import org.spring.boot.bean.scope.imports.ImportBean;
 import org.spring.boot.bean.scope.imports.UserBean;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
@@ -18,6 +17,7 @@ public class Application {
 //		SpringApplication springApplication = new SpringApplication(Application.class);
 //		springApplication.setAllowBeanDefinitionOverriding(true);
 //		springApplication.run(args);
+		SpringApplication.run(Application.class);
 	}
 }
 

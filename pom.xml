@@ -33,9 +33,10 @@
 		<module>spring-boot-jdbcTemplate</module>
 		<module>spring-boot-jdbcTemplate-multi-datasource</module>
 		<module>spring-boot-data-jpa</module>
+		<module>spring-boot-data-es</module>
 		<module>spring-boot-data-jpa-multi-datasource</module>
 		<module>spring-boot-mybatis</module>
-		<module>spring-boot-redis</module>
+		<module>spring-boot-mybatis-redis</module>
 		<module>spring-boot-session-redis</module>
 		<module>spring-boot-mybatis-annotation</module>
 		<module>spring-boot-mybatis-multi-datasource</module>
@@ -70,6 +71,12 @@
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
+		</dependency>
+
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>1.2.60</version>
 		</dependency>
 	</dependencies>
 

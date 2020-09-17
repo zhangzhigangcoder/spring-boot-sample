@@ -10,12 +10,13 @@ import org.springframework.context.annotation.Configuration;
  *  2.key存在
  *  	2.1 havingValue为空，key对应的value不等于false，返回true，反之false
  *  	2.2 havingValue不为空，key对应的value等于havingValue，返回true,反之false
+ *  注意：name和value作用一样，不能同时使用，不能同时为空
  *  	
  * @author zhangzhigang
  *
  */
 @Configuration
-@ConditionalOnProperty(prefix = "boot.user", name = "name", havingValue = "zhangzhigang", matchIfMissing = true)
+@ConditionalOnProperty(prefix = "boot.user", name = "name", havingValue = "zhangzhigang", matchIfMissing = false)
 public class MyConditionalOnPropertyTest {
 	
 	public MyConditionalOnPropertyTest() {
