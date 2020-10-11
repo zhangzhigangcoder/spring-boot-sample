@@ -10,8 +10,10 @@ import org.openjdk.jol.info.ClassLayout;
  */
 public class Layout {
 	
-	public static void main(String[] args) {
-		
+	public static void main(String[] args) throws InterruptedException {
+
+//		Thread.sleep(5);
+
 		Object o = new Object(); 
 		
 //		Student s = new Student("zhang", 1);
@@ -19,12 +21,26 @@ public class Layout {
 //		Map m = new HashMap();
 //		m.put("1", "v");
 		System.out.println(ClassLayout.parseInstance(o).toPrintable());
-		
+
+		new Thread(() -> {
+			try {
+				Thread.sleep(500);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			synchronized (o) {
+//				o.notify();
+				System.out.println("111111");
+			}
+		}).start();
+
+
 		synchronized (o) {
+//			o.wait();
 			System.out.println(ClassLayout.parseInstance(o).toPrintable());
-//			synchronized (s) {
-//				System.out.println(ClassLayout.parseInstance(s).toPrintable());
-//			}
+			synchronized (o) {
+				System.out.println(ClassLayout.parseInstance(o).toPrintable());
+			}
 		}
 		// 11000011
 		// 00110100
@@ -35,8 +51,11 @@ public class Layout {
 		// 10011010
 		// 01011101
 		// 11111111
-		System.out.println(Integer.toBinaryString(System.identityHashCode(o)));
+//		System.out.println(Integer.toBinaryString(System.identityHashCode(o)));
 //		System.out.println(Integer.toBinaryString(o.hashCode())); // 10
 		System.out.println(ClassLayout.parseInstance(o).toPrintable());
 	}
+
+
+
 }

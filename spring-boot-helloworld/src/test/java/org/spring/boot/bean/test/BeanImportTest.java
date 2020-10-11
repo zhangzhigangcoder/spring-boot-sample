@@ -6,6 +6,7 @@ import org.spring.boot.bean.scope.UserFactoryBean;
 import org.spring.boot.bean.scope.imports.UserBean;
 import org.spring.boot.bean.spring.factories.MySpringFactoriesImport;
 import org.spring.boot.properties.OrderProperties;
+import org.spring.boot.properties.UserProperties;
 import org.spring.boot.test.base.BaseTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -21,8 +22,8 @@ public class BeanImportTest extends BaseTest {
 	@Autowired
 	private OrderProperties orderProperties;
 	
-//	@Autowired
-//	private UserProperties userProperties;
+	@Autowired
+	private UserProperties userProperties;
 	
 	@Autowired
 	private UserFactoryBean userFactoryBean;
@@ -54,9 +55,10 @@ public class BeanImportTest extends BaseTest {
 	 */
 	@Test
 	public void testConfigurationProperties() {
+		System.out.println("========================");
 		System.out.println(orderProperties.getNo());
 		System.out.println(orderProperties.getCode());
-//		System.out.println(userProperties.getName());
+		System.out.println(userProperties.getName());
 	}
 	
 	/**

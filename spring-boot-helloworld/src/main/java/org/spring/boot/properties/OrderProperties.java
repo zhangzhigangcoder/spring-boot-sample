@@ -2,14 +2,18 @@ package org.spring.boot.properties;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Configuration;
 
 /**
  * 框架配置
  *@ConfigurationProperties解析类:ConfigurationPropertiesBindingPostProcessor
  * @author zhangzhigang
  */
-@ConditionalOnMissingBean(UserProperties.class)
+@EnableConfigurationProperties
+//@ConditionalOnMissingBean(UserProperties.class)
 @ConfigurationProperties(prefix = OrderProperties.ORDER_PREFIX)
+//	@Configuration
 public class OrderProperties {
 	
 	static final String ORDER_PREFIX = "boot.order";

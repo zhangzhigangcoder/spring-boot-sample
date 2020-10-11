@@ -140,6 +140,20 @@ public class EsTest {
         }
     }
 
+    @Test
+    public void testDeleteByQuery(){
+        BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
+        QueryBuilder userIdQuery = QueryBuilders.termQuery("id", "ebce2478de5a4a26aaf288a07548053b");
+        boolQueryBuilder.must(userIdQuery);
+        new DeleteByQuery.Builder(new SearchSourceBuilder().query(boolQueryBuilder).toString())
+                .addIndex(TEST_INDEX)
+                .addType(TEST_TYPE)
+                .setParameter("scroll_size", 5000)
+                .refresh(true)
+                .setParameter("slices", 5)
+                .build();
+    }
+
     /**
      * 统计
      */

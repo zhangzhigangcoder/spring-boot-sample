@@ -58,20 +58,21 @@ public class ThreadJoinTest {
 		System.out.println("All threads are dead, exiting main thread");
 		
 	}
-}
 
-class MyRunable implements Runnable {
+	static class MyRunable implements Runnable {
 
-	@Override
-	public void run() {
-//		System.out.println("Thread started: " + Thread.currentThread().getName() +" " + new Date().getSeconds());
-//		try {
-//			Thread.sleep(4000);
-//		} catch (InterruptedException e) {
-//			e.printStackTrace();
-//		}
-//		System.out.println("Thread ended: " + Thread.currentThread().getName() +" " + new Date().getSeconds());
-		while(true) {}
+		@Override
+		public void run() {
+		System.out.println("Thread started: " + Thread.currentThread().getName() +" " + new Date().getSeconds());
+		try {
+			Thread.sleep(4000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		System.out.println("Thread ended: " + Thread.currentThread().getName() +" " + new Date().getSeconds());
+//			while(true) {}
+		}
+
 	}
-	
 }
+
