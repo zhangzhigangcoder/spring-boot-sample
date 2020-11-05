@@ -1,16 +1,15 @@
 package org.spring.boot.controller;
 
+import org.spring.boot.entity.Person;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-
-import javax.servlet.http.HttpServletRequest;
-
-import org.spring.boot.entity.Person;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class MainController {
@@ -37,6 +36,12 @@ public class MainController {
 //		System.out.println(readBody(request));
 		return "ok";
 	}
+
+	@PostMapping(value = "/uploadImage", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+	public void uploadImage(@RequestPart(value = "file") MultipartFile file, @RequestParam(value = "flag", defaultValue = "PV") String flag) {
+		System.out.println("-------");
+	}
+
 
 	private String readBody(HttpServletRequest request) {
 		String header = request.getHeader("Content-type");

@@ -9,8 +9,11 @@ spring:
   aop:
   # 是否开启AOP,默认开启
     auto: true
-  
-boot: 
+  servlet:
+    multipart:
+      enabled: false
+
+boot:
   user: 
     name: "zhangzhigang"
     age: 18
