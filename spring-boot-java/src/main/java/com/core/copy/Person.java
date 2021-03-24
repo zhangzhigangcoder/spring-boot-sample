@@ -8,6 +8,8 @@ public class Person implements Cloneable {
 	private String name;
 	
 	private int age;
+
+	private String birthDate;
 	
 	private Student s;
 
@@ -83,7 +85,15 @@ public class Person implements Cloneable {
 			return false;
 		return true;
 	}
-	
+
+	public String getBirthDate() {
+		return birthDate;
+	}
+
+	public void setBirthDate(String birthDate) {
+		this.birthDate = birthDate;
+	}
+
 	public static void main(String[] args) {
 		Person p1 = new Person("zzg", 1);
 		Person p2 = new Person("zzg", 0);

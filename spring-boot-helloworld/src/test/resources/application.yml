@@ -9,6 +9,9 @@ spring:
   aop:
   # 是否开启AOP,默认开启
     auto: true
+
+#  profiles:
+#    active: 'dev'
   
 boot: 
   user: 
@@ -17,3 +20,4 @@ boot:
   order: 
     code: "123"
     no: "12222222222222222222222"
+    id: "1111-yml"

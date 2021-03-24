@@ -1,9 +1,10 @@
 package com.tools.hutool;
 
 import cn.hutool.core.date.*;
+import com.core.copy.Person;
+import com.google.common.collect.Lists;
 
-import java.util.Calendar;
-import java.util.Date;
+import java.util.*;
 
 /**
  * @Desc
@@ -12,10 +13,18 @@ import java.util.Date;
  */
 public class DateTest {
     public static void main(String[] args) {
-
-
-
+//        String dateStr1 = "2020-02-02 22:33:23";
+//        Date date1 = DateUtil.parse(dateStr1);
+//
+//        String dateStr2 = "2020-03-01 23:33:23";
+//        Date date2 = DateUtil.parse(dateStr2);
+//
+//        long betweenMonth = DateUtil.betweenMonth(date1, date2, false);
+//        System.out.println(betweenMonth);
+        DateTime date = DateUtil.date(1609207802000L);
+        System.out.println(DateUtil.formatDateTime(date));
     }
+
 
     /**
      * 创建

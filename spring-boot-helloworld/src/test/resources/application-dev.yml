@@ -9,15 +9,12 @@ spring:
   aop:
   # 是否开启AOP,默认开启
     auto: true
-  servlet:
-    multipart:
-      enabled: false
-
-boot:
+  
+boot: 
   user: 
     name: "zhangzhigang"
     age: 18
   order: 
     code: "123"
     no: "12222222222222222222222"
-    id: "2222"
+    id: "1111-dev-yml"

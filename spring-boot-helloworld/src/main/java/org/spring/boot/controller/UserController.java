@@ -7,6 +7,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.spring.boot.entity.User;
+import org.spring.boot.properties.OrderProperties;
+import org.spring.boot.properties.UserProperties;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,7 +29,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/users")
 public class UserController {
-	
+
+	@Autowired
+	private OrderProperties orderProperties;
+
 	//创建线程安全的Map
 	private static Map<Long,User> users = Collections.synchronizedMap(new HashMap<>());
 	
@@ -34,6 +40,7 @@ public class UserController {
 	public List<User> getUserList() {
 		// 还可以通过@RequestParam从页面中传递参数来进行查询条件或者翻页信息传递
 		List<User> userList = new ArrayList<>(users.values());
+		System.out.println(orderProperties.getId());
 		return userList;
 	}
 	

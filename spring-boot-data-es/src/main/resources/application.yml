@@ -1,0 +1,5 @@
+spring:
+  elasticsearch:
+    jest:
+      uris: http://dolphin-dev.kedacom.com/es-common
+      read-timeout: 20000

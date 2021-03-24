@@ -3,10 +3,10 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<artifactId>spring-boot-helloworld</artifactId>
+	<artifactId>spring-boot-data-kafka</artifactId>
 	<packaging>jar</packaging>
 
-	<name>spring-boot-sample-helloworld</name>
+	<name>spring-boot-data-kafka</name>
 	<description>Demo project for Spring Boot</description>
 
 	<parent>
@@ -43,32 +43,17 @@
 		     <version>18.0</version>
 		</dependency>
 
-		<!-- 测试maven依赖 -->
+		<!-- kafka -->
 		<dependency>
-			<groupId>com.zhangzhigang</groupId>
-			<artifactId>spring-boot-maven</artifactId>
-			<version>0.0.1-RELEASE</version>
+			<groupId>org.springframework.kafka</groupId>
+			<artifactId>spring-kafka</artifactId>
 		</dependency>
 
-
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
+		</dependency>
+		
 	</dependencies>
-
-	<repositories>
-		<repository>
-			<id>alibab</id>
-			<name>alibaba</name>
-			<url>http://maven.aliyun.com/nexus/content/groups/public/</url>
-		</repository>
-		<repository>
-			<id>neuxs-releases</id>
-			<name>yuanqu</name>
-			<url>http://localhost:8081/repository/maven-releases/</url>
-		</repository>
-		<repository>
-			<id>neuxs-snapshot</id>
-			<name>yuanqu</name>
-			<url>http://localhost:8081/repository/maven-snapshots/</url>
-		</repository>
-	</repositories>
 	
 </project>

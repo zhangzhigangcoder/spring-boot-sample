@@ -16,7 +16,7 @@ public class MainController {
 
 	@GetMapping("/homePage")
 	public String homePage(HttpServletRequest request) {
-		System.out.println(new Person().getName());
+		System.out.println("------11111");
 		return "hello world";
 	}
 

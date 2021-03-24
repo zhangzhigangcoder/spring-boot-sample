@@ -1,5 +1,6 @@
 package org.spring.boot;
 
+import com.agent.TestAgent;
 import org.spring.boot.bean.scope.imports.ImportBean;
 import org.spring.boot.bean.scope.imports.UserBean;
 import org.springframework.boot.SpringApplication;
@@ -18,6 +19,7 @@ public class Application {
 //		springApplication.setAllowBeanDefinitionOverriding(true);
 //		springApplication.run(args);
 		SpringApplication.run(Application.class);
+		TestAgent.premain(null, null);
 	}
 }
 
