@@ -3,6 +3,7 @@ package com.core.thread.concurrent.tools;
 import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * @author zhangzhigang
@@ -31,7 +32,16 @@ public class CyclicBarrierTest {
 //			});
 //		}
 //		service.shutdown();
-		System.out.println(System.getProperty("profileActive"));
+//		System.out.println(System.getProperty("profileActive"));
+
+		AtomicInteger atomicInteger = new AtomicInteger();
+		int HASH_INCREMENT = 0x61c88647;
+
+		System.out.println(atomicInteger.getAndAdd(HASH_INCREMENT) & 15);
+		System.out.println(atomicInteger.getAndAdd(HASH_INCREMENT) & 15);
+		System.out.println(atomicInteger.getAndAdd(HASH_INCREMENT) & 15);
+		System.out.println(atomicInteger.getAndAdd(HASH_INCREMENT) & 15);
+
 	}
 }
 
