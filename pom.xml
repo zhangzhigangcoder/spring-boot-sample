@@ -33,11 +33,9 @@
 		<module>spring-boot-jdbcTemplate</module>
 		<module>spring-boot-jdbcTemplate-multi-datasource</module>
 		<module>spring-boot-data-jpa</module>
-		<module>spring-boot-data-es</module>
-		<module>spring-boot-data-kafka</module>
 		<module>spring-boot-data-jpa-multi-datasource</module>
 		<module>spring-boot-mybatis</module>
-		<module>spring-boot-mybatis-redis</module>
+		<module>spring-boot-data-redis</module>
 		<module>spring-boot-session-redis</module>
 		<module>spring-boot-mybatis-annotation</module>
 		<module>spring-boot-mybatis-multi-datasource</module>
@@ -68,43 +66,22 @@
 			<scope>test</scope>
 		</dependency>
 
+		<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-			<optional>true</optional>
+			<version>1.18.20</version>
+			<scope>provided</scope>
 		</dependency>
 
-		<dependency>
-			<groupId>com.alibaba</groupId>
-			<artifactId>fastjson</artifactId>
-			<version>1.2.60</version>
-		</dependency>
 	</dependencies>
 
 	<build>
 		<plugins>
-<!--			<plugin>-->
-<!--				<groupId>org.springframework.boot</groupId>-->
-<!--				<artifactId>spring-boot-maven-plugin</artifactId>-->
-<!--			</plugin>-->
-				<plugin>
-					<groupId>com.zhangzhigang</groupId>
-					<artifactId>maven-plugin-test</artifactId>
-					<version>1.0-SNAPSHOT</version>
-					<!--传递参数-->
-					<configuration>
-						<prefix>----prefix----</prefix>
-					</configuration>
-					<executions>
-						<execution>
-							<id>helloPluginUse</id>
-							<phase>clean</phase>
-							<goals>
-								<goal>helloPlugin</goal>
-							</goals>
-						</execution>
-					</executions>
-				</plugin>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
 		</plugins>
 	</build>
 

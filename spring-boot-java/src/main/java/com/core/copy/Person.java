@@ -1,8 +1,11 @@
 package com.core.copy;
 
+import lombok.Data;
+
 import java.util.HashMap;
 import java.util.Map;
 
+@Data
 public class Person implements Cloneable {
 	
 	private String name;

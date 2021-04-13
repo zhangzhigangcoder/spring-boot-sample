@@ -1,5 +1,6 @@
 package com.jvm.gc;
 
+import com.core.copy.Student;
 import org.openjdk.jol.info.ClassLayout;
 
 /**
@@ -14,9 +15,9 @@ public class Layout {
 
 //		Thread.sleep(5);
 
-		Object o = new Object(); 
+//		Object o = new Object(); 
 		
-//		Student s = new Student("zhang", 1);
+		Student o = new Student("zhang", 1);
 //		
 //		Map m = new HashMap();
 //		m.put("1", "v");

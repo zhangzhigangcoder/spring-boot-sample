@@ -19,7 +19,11 @@ public class UnsafeTest {
 	private static final long offset = objectFieldOffsetTest();
 
 	public static void main(String[] args) throws Exception {
-		parkTest2();
+		unsafe.unpark(Thread.currentThread());
+		unsafe.unpark(Thread.currentThread());
+		unsafe.park(false,0);
+
+		System.out.println("-----");
 	}
 	
 	public static final Unsafe getUnsafe() {
@@ -221,8 +225,7 @@ public class UnsafeTest {
 }
 
 class Person {
-	private String name;
-	private Person() {}
+	public String name;
 	public String getName() {
 		return name;
 	}

@@ -6,7 +6,7 @@
 	<artifactId>spring-boot-async</artifactId>
 	<packaging>jar</packaging>
 
-	<name>spring-boot-sample-async</name>
+	<name>spring-boot-async</name>
 	<description>Demo project for Spring Boot</description>
 
 	<parent>

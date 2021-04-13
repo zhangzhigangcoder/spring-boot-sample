@@ -6,7 +6,7 @@
 	<artifactId>spring-boot-schedule-tasks</artifactId>
 	<packaging>jar</packaging>
 
-	<name>spring-boot-sample-schedule-tasks</name>
+	<name>spring-boot-schedule-tasks</name>
 	<description>Demo project for Spring Boot</description>
 
 	<parent>

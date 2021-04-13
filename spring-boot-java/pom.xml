@@ -5,7 +5,9 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<artifactId>spring-boot-java</artifactId>
-	<name>spring-boot-sample-java</name>
+	<name>spring-boot-java</name>
+
+	<packaging>jar</packaging>
 	<description>Demo project for Spring Boot</description>
 
 	<parent>
@@ -86,19 +88,26 @@
 			<artifactId>jol-core</artifactId>
 			<version>0.9</version>
 		</dependency>
-		
+
 		<dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
             <version>18.0</version>
         </dependency>
-		
+
+		<!-- https://mvnrepository.com/artifact/com.github.rholder/guava-retrying -->
 		<dependency>
-		    <groupId>com.github.rholder</groupId>
-		    <artifactId>guava-retrying</artifactId>
-		    <version>2.0.0</version>
+			<groupId>com.github.rholder</groupId>
+			<artifactId>guava-retrying</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>com.google.guava</groupId>
+					<artifactId>guava</artifactId>
+				</exclusion>
+			</exclusions>
+			<version>2.0.0</version>
 		</dependency>
-		
+
 		<dependency>
             <groupId>org.apache.commons</groupId>
 		  	<artifactId>commons-lang3</artifactId>
