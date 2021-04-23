@@ -1,4 +1,4 @@
-package com.core.collection;
+package com.core.collection.map;
 
 
 import java.util.Comparator;
@@ -49,17 +49,10 @@ public class TreeMapTest {
         // Map.Entry<String, String> firstEntry = map.pollFirstEntry();
 
         // 移除并返回最后一个元素
-//         Map.Entry<String, String> lastEntry = map.pollLastEntry();
+        // Map.Entry<String, String> lastEntry = map.pollLastEntry();
 
         sortedMap.forEach((k, v) -> System.out.println(k + "-" + v));
 
 //        map.lowerEntry("a");
-
-
-
-
-
-
-
     }
 }

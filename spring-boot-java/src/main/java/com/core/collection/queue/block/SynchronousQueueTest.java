@@ -1,4 +1,4 @@
-package com.core.thread.concurrent.queue.block;
+package com.core.collection.queue.block;
 
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.SynchronousQueue;

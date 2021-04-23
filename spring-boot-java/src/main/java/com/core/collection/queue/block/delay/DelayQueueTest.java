@@ -1,4 +1,4 @@
-package com.core.thread.concurrent.queue.block.delay;
+package com.core.collection.queue.block.delay;
 
 import java.util.concurrent.DelayQueue;
 import java.util.concurrent.Delayed;
@@ -45,7 +45,7 @@ public class DelayQueueTest {
                         e.printStackTrace();
                     }
 
-                    DelayedElement element = new DelayedElement(1000000, "test");
+                    DelayedElement element = new DelayedElement(1000, "test");
                     delayQueue.offer(element);
                 }
             }

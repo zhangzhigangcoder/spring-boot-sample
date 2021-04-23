@@ -1,4 +1,4 @@
-package com.core.thread.concurrent.queue.block.deque;
+package com.core.collection.queue.deque.block;
 
 import java.util.concurrent.BlockingDeque;
 import java.util.concurrent.LinkedBlockingDeque;
@@ -15,13 +15,12 @@ public class LinkedBlockingDequeTest {
 
     public static void main(String[] args) throws InterruptedException {
         BlockingDeque<String> deque = new LinkedBlockingDeque<String>(1);
-        deque.addFirst("1");
-        deque.addLast("2");
+        deque.putLast("1");
+        deque.putFirst("2");
 
-        String two = deque.takeLast();
+        String two = deque.takeFirst();
         System.out.println(two);
-        String one = deque.takeFirst();
+        String one = deque.takeLast();
         System.out.println(one);
-
     }
 }

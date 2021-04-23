@@ -1,6 +1,4 @@
-package com.core.thread.concurrent.queue;
-
-import com.core.copy.Person;
+package com.core.collection.queue;
 
 import java.util.Comparator;
 import java.util.PriorityQueue;

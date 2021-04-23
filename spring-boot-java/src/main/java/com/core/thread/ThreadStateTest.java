@@ -9,7 +9,7 @@ public class ThreadStateTest {
 	
 	public static void main(String[] args) throws Exception {
 		Object lock = new Object();
-		new Thread(() -> {
+		Thread t1 = new Thread(() -> {
 			synchronized (lock) {
 				try {
 					// TIMED_WAITING
@@ -18,11 +18,13 @@ public class ThreadStateTest {
 					e.printStackTrace();
 				}
 			}
-		}, "t1").start();
+		}, "t1");
+
+		t1.start();
 		
-		Thread.sleep(500);
+		Thread.sleep(100);
 		
-		new Thread(() -> {
+		Thread t2 = new Thread(() -> {
 			// BLOCKED
 			synchronized (lock) {
 				try {
@@ -31,7 +33,12 @@ public class ThreadStateTest {
 					e.printStackTrace();
 				}
 			}
-		}, "t2").start();
-		
+		}, "t2");
+
+		t2.start();
+
+		Thread.sleep(100);
+
+		System.out.println(t2.getState());
 	}
 }

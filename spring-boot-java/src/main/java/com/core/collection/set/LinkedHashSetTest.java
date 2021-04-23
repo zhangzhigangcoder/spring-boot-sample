@@ -1,19 +1,19 @@
-package com.core.collection;
+package com.core.collection.set;
 
 
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 
-public class HashSetTest {
+public class LinkedHashSetTest {
 
     public static void main(String[] args) {
-        Set<String> set = new HashSet<>();
+        Set<String> set = new LinkedHashSet<>();
         set.add("b");
         set.add("c");
         set.add("a");
         set.add("d");
-        // 不能保证顺序
+        // 可以保证插入顺序
         System.out.println(set);
     }
 }
