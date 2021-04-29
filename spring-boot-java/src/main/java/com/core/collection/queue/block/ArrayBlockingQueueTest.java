@@ -13,12 +13,14 @@ import java.util.concurrent.BlockingQueue;
 @Slf4j
 public class ArrayBlockingQueueTest {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
 
         final BlockingQueue<String> queue = new ArrayBlockingQueue<String>(1);
 
         // 消费
         consume(queue);
+
+        Thread.sleep(1000L);
 
         // 生产
         produce(queue);
@@ -54,7 +56,7 @@ public class ArrayBlockingQueueTest {
                     while (true) {
                         try {
                             String data = queue.take();
-                            log.info("take data = {}", data);
+                            log.info(Thread.currentThread().getName() + " take data = {}", data);
                         } catch (InterruptedException e) {
                             log.error("error = {}", e.getMessage());
                         }

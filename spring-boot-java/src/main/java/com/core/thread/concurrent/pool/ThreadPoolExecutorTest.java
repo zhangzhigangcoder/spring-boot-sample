@@ -47,19 +47,22 @@ public class ThreadPoolExecutorTest {
 	 * 
 	 */
 	
-	public static void main(String[] args) throws Exception {
+	public static void main2(String[] args) throws Exception {
 		RejectedExecutionHandler rejectionHandler = new RejectedExecutionHandlerImpl();
 		ThreadFactory threadFactor = Executors.defaultThreadFactory();
-		ThreadPoolExecutor executor = new ThreadPoolExecutor(2, 4, 10, TimeUnit.SECONDS,new LinkedBlockingQueue<Runnable>(2), threadFactor, rejectionHandler);
+		ThreadPoolExecutor executor = new ThreadPoolExecutor(0, 4, 10, TimeUnit.SECONDS,new LinkedBlockingQueue<Runnable>(2), threadFactor, rejectionHandler);
+//		executor.allowCoreThreadTimeOut(true);
 		MyMonitorThread monitor = new MyMonitorThread(executor, 3);
 		new Thread(monitor).start();
 		for (int i = 0; i < 10; i++) {
 			executor.execute(new WorkerThread("cmd-" + i));
 		}
-		Thread.sleep(30 * 1000);
-		executor.shutdown();
-		Thread.sleep(5 * 1000);
-		monitor.shutdown();
+//		Thread.sleep(3 * 1000);
+//		executor.shutdown();
+		while(!executor.isTerminated()) {}
+//		Thread.sleep(5 * 1000);
+//		monitor.shutdown();
+		System.out.println("Finished all threads");
 	}
 	
 	public static void simpleTest(String[] args) {
@@ -74,24 +77,12 @@ public class ThreadPoolExecutorTest {
 		System.out.println("Finished all threads");
 	}
 
-	public static void test() {
-		int temp = 0;
-		int count_bits = Integer.SIZE - 3;
-		// 536870911 11111111111111111111111111111(29)
-		int capacity = (1 << count_bits) -1;
-		// -536870912 11100000000000000000000000000000(32)
-		int running = -1 << count_bits;
-		// 0
-		int shutdown = 0 << count_bits;
-		// 536870912 100000000000000000000000000000(30)
-		int stop       =  1 << count_bits;
-		// 1073741824 1000000000000000000000000000000(31)
-		int tidying    =  2 << count_bits;
-		// 1610612736 1100000000000000000000000000000
-		int terminated       =  3 << count_bits;
-		temp = (running | 0) & capacity;
-		System.out.println(temp);
-		System.out.println(Integer.toBinaryString(temp));
+	public static void main(String[] args) {
+		 final ExecutorService single = Executors.newSingleThreadExecutor();
+		final ExecutorService fixed = Executors.newFixedThreadPool(1);
+		ThreadPoolExecutor executor = (ThreadPoolExecutor) fixed;
+		executor.setCorePoolSize(4);
 	}
+
 }
 

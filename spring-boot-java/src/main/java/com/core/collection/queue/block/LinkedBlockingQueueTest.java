@@ -14,12 +14,14 @@ import java.util.concurrent.LinkedBlockingQueue;
 @Slf4j
 public class LinkedBlockingQueueTest {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
 
         final BlockingQueue<String> queue = new LinkedBlockingQueue<>(1);
 
         // 消费
         consume(queue);
+
+        Thread.sleep(1000L);
 
         // 生产
         produce(queue);
@@ -48,14 +50,15 @@ public class LinkedBlockingQueueTest {
      * @param queue
      */
     public static void consume(BlockingQueue<String> queue) {
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 2; i++) {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
                     while (true) {
                         try {
                             String data = queue.take();
-                            log.info("take data = {}", data);
+                            log.info(Thread.currentThread().getName() + " take data = {}", data);
+                            Thread.sleep(100000L);
                         } catch (InterruptedException e) {
                             log.error("error = {}", e.getMessage());
                         }

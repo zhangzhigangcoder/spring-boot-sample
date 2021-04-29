@@ -33,6 +33,9 @@ public class MyMonitorThread implements Runnable {
 				this.executor.isShutdown(),
 				this.executor.isTerminated()
 			));
+			if (0 == this.executor.getPoolSize()) {
+				this.executor.execute(new WorkerThread("1111"));
+			}
 			
 			try {
 				Thread.sleep(seconds * 1000);
