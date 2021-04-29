@@ -1,12 +1,6 @@
 package com.core.thread.concurrent.pool;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.RejectedExecutionHandler;
-import java.util.concurrent.ThreadFactory;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
 /**
  * @author zhangzhigang
@@ -47,10 +41,14 @@ public class ThreadPoolExecutorTest {
 	 * 
 	 */
 	
-	public static void main2(String[] args) throws Exception {
+	public static void main(String[] args) {
+		submitCallableTest();
+	}
+
+	public static void test1() {
 		RejectedExecutionHandler rejectionHandler = new RejectedExecutionHandlerImpl();
 		ThreadFactory threadFactor = Executors.defaultThreadFactory();
-		ThreadPoolExecutor executor = new ThreadPoolExecutor(0, 4, 10, TimeUnit.SECONDS,new LinkedBlockingQueue<Runnable>(2), threadFactor, rejectionHandler);
+		ThreadPoolExecutor executor = new ThreadPoolExecutor(2, 4, 10, TimeUnit.SECONDS,new LinkedBlockingQueue<Runnable>(2), threadFactor, rejectionHandler);
 //		executor.allowCoreThreadTimeOut(true);
 		MyMonitorThread monitor = new MyMonitorThread(executor, 3);
 		new Thread(monitor).start();
@@ -65,7 +63,7 @@ public class ThreadPoolExecutorTest {
 		System.out.println("Finished all threads");
 	}
 	
-	public static void simpleTest(String[] args) {
+	public static void simpleTest() {
 		ExecutorService executor = Executors.newFixedThreadPool(5);
 //		ExecutorService executor = new ThreadPoolExecutor(2, 45, 1000 * 60L, TimeUnit.MILLISECONDS,new LinkedBlockingQueue<Runnable>(5));
 		for (int i = 0; i < 10; i++) {
@@ -77,12 +75,35 @@ public class ThreadPoolExecutorTest {
 		System.out.println("Finished all threads");
 	}
 
-	public static void main(String[] args) {
-		 final ExecutorService single = Executors.newSingleThreadExecutor();
-		final ExecutorService fixed = Executors.newFixedThreadPool(1);
-		ThreadPoolExecutor executor = (ThreadPoolExecutor) fixed;
-		executor.setCorePoolSize(4);
+	public static void submitRunnableTest() {
+		ThreadPoolExecutor executor = new ThreadPoolExecutor(2, 4, 10, TimeUnit.SECONDS,new LinkedBlockingQueue<Runnable>(2));
+		Future<?> future = executor.submit(new WorkerThread("task Thread"), "success");
+		try {
+			String result = (String) future.get();
+			System.out.println(result);
+			executor.shutdown();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			e.printStackTrace();
+		}
 	}
+
+	public static void submitCallableTest() {
+		ThreadPoolExecutor executor = new ThreadPoolExecutor(2, 4, 10, TimeUnit.SECONDS,new LinkedBlockingQueue<Runnable>(2));
+		Future<?> future = executor.submit(() -> "success");
+		try {
+			String result = (String) future.get();
+			System.out.println(result);
+			executor.shutdown();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			e.printStackTrace();
+		}
+	}
+
+
 
 }
 
