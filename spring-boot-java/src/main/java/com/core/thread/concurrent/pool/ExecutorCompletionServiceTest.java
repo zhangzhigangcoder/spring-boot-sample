@@ -18,7 +18,9 @@ public class ExecutorCompletionServiceTest {
             Long beginTime = System.currentTimeMillis();
             Future<String> future = completionService.poll(-1, TimeUnit.SECONDS);
             System.out.println("future = " + future);
+            // future可能为空(超时)
             if (null != future) {
+                // future.get()可能为空(执行报错)
                 System.out.println(future.get());
             }
             System.out.println("i=" + i + " spend time = " + (System.currentTimeMillis() - beginTime));
