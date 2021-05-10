@@ -16,7 +16,7 @@ public class ExecutorCompletionServiceTest {
         }
         for (int i = 0; i < numThread; i++) {
             Long beginTime = System.currentTimeMillis();
-            Future<String> future = completionService.poll(-1, TimeUnit.SECONDS);
+            Future<String> future = completionService.poll(0, TimeUnit.SECONDS);
             System.out.println("future = " + future);
             // future可能为空(超时)
             if (null != future) {

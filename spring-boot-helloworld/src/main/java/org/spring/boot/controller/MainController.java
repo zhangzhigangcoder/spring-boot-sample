@@ -26,10 +26,10 @@ public class MainController {
 	 * 如果想接收其它Content-type类型(如text/plain)要从request中的inputstream中读取
 	 * @param request
 	 * @param data
-	 * @return
+	 * @returnSynchronousQueue
 	 */
 	@PostMapping("/homePage2")
-	public String callback(HttpServletRequest request, Data data) {
+	public String callback(HttpServletRequest request, @RequestBody Data data) {
 		System.out.println(request.getHeader("Content-Type"));
 		String name = request.getParameter("name");
 		System.out.println(name);

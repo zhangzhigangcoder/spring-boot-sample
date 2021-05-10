@@ -5,11 +5,11 @@ import java.util.concurrent.SynchronousQueue;
 
 public class SynchronousQueueTest {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
 
         final Semaphore semaphore = new Semaphore(1);
 
-        final SynchronousQueue<String> queue = new SynchronousQueue<String>();
+        final SynchronousQueue<String> queue = new SynchronousQueue<String>(true);
 
         for (int i = 0; i < 10; i++) {
             new Thread(new Runnable() {
@@ -27,6 +27,8 @@ public class SynchronousQueueTest {
                 }
             }).start();
         }
+
+        Thread.sleep(1000L);
 
         System.out.println("begin:" + (System.currentTimeMillis() / 1000));
         for (int i = 0; i < 10; i++) {
