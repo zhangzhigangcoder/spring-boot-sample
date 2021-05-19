@@ -2,7 +2,6 @@ package org.spring.boot.kafka;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.spring.boot.Application;
 import org.spring.boot.kafka.producer.KafkaProducer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

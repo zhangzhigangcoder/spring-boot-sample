@@ -35,7 +35,10 @@
 		<module>spring-boot-data-jpa</module>
 		<module>spring-boot-data-jpa-multi-datasource</module>
 		<module>spring-boot-mybatis</module>
+		<module>spring-boot-mybatis-redis</module>
 		<module>spring-boot-data-redis</module>
+		<module>spring-boot-data-kafka</module>
+		<module>spring-boot-data-es</module>
 		<module>spring-boot-session-redis</module>
 		<module>spring-boot-mybatis-annotation</module>
 		<module>spring-boot-mybatis-multi-datasource</module>
@@ -72,6 +75,13 @@
 			<artifactId>lombok</artifactId>
 			<version>1.18.20</version>
 			<scope>provided</scope>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>1.2.76</version>
 		</dependency>
 
 	</dependencies>

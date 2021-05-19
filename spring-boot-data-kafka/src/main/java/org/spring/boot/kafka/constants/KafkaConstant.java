@@ -1,8 +1,8 @@
-package org.spring.boot.kafka.constant;
+package org.spring.boot.kafka.constants;
 
 public interface KafkaConstant {
 
-   String TOPIC_TEST = "device.topic.test";
+   String TOPIC_TEST = "test2";
 
     String TOPIC_GROUP1 = "topic.group11";
 
