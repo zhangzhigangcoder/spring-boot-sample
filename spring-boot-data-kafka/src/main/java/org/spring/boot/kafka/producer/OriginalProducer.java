@@ -15,7 +15,7 @@ public class OriginalProducer {
     public static void main(String[] args) {
         Properties properties = new Properties();
         // bootstrap.servers kafka集群地址 host1:port1,host2:port2 ....
-        properties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "10.65.3.30:19092");
+        properties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
         // key.deserializer 消息key序列化方式
         properties.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
         // value.deserializer 消息体序列化方式
@@ -24,10 +24,10 @@ public class OriginalProducer {
         KafkaProducer<String, String> producer = new KafkaProducer<>(properties);
 
         // 0 异步发送消息
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 1000000000000L; i++) {
             String data = "async :" + i;
-            // 发送消息
-            producer.send(new ProducerRecord<>("test2", data));
+            // 发送消息ConsumerOffsetCheckerConsumerOffsetChecker
+            producer.send(new ProducerRecord<>("test", data));
         }
 
         // 1 同步发送消息 调用get()阻塞返回结果
