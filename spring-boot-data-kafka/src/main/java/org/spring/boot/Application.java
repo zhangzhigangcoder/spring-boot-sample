@@ -1,13 +1,65 @@
 package org.spring.boot;
 
+import org.apache.kafka.common.serialization.StringDeserializer;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class Application {
 
-	public static void main(String[] args) {
-		SpringApplication.run(Application.class, args);
+	public static void main(String[] args) throws Exception {
+//		SpringApplication.run(Application.class, args);
+//		byte[] b = {0, 1, 0, 11, 0, 0, 2, 74, 0, 10,
+//					99, 111, 110, 115, 117, 109, 101, 114, 45, 49,
+//					-1, -1, -1, -1, 0, 0, 1, -12, 0, 0,
+//					0,1, 3, 32, 0, 0, 0, 20, 99, -25,
+//					-41, 0, 0, 0, 0, 0, 0, 0, 1, 0,
+//					4, 116, 101, 115, 116, 0, 0, 0, 1, 0,
+//					0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+//					0, 0, 0, 0, 14, -1, -1, -1, -1, -1,
+//					-1, -1, -1, 0, 16, 0, 0, 0, 0, 0,
+//					0, 0, 0};
+//		byte[] b = {0, 0, 0, 10, 0,
+//					1, 0, 5, 116, 101,
+//					115, 116, 50, 0, 0, 0, 0};
+
+//		byte[] b = {
+//				0, 0, 0, 10, 0,
+//				0, 0, 0, 0, 0,
+//				78, 50, -127, -86, 0,
+//				0, 0, 1, 0, 5,
+//				116, 101, 115, 116, 50,
+//				0, 0, 0, 1, 0,
+//				0, 0, 0, 0, 0,
+//				0, 0, 0, 0, 0,
+//				0, 0, 1, 0, 0,
+//				0, 0, 0, 0, 0,
+//				1, 0, 0, 0, 0,
+//				0, 0, 0, 0, -1,
+//				-1, -1, -1, -1, -1,
+//				-1, -1, 0, 0, 0,
+//				71, 0, 0, 0, 0,
+//				0, 0, 0, 0, 0,
+//				0, 0, 59, 0, 0,
+//				0, 0, 2, -83, 61,
+//				-100, -44, 0, 0, 0,
+//				0, 0, 0, 0, 0,
+//				1, 121, -53, -16, 46,
+//				43, 0, 0, 1, 121,
+//				-53, -16, 46, 43, -1,
+//				-1, -1, -1, -1, -1,
+//				-1, -1, -1, -1, -1,
+//				-1, -1, -1, 0, 0,
+//				0, 0, 1, 18, 0, 0,
+//				0, 2, 49, 4, 50,
+//				50, 50, 0
+//
+//		};
+
+		byte[] b = {0, 3, 0, 8, 0, 0, 0, 3, 0, 10, 112, 114, 111, 100, 117, 99, 101, 114, 45, 49, 0, 0, 0, 1, 0, 4, 116, 101, 115, 116, 1, 0, 0};
+
+		String s = new String(b, "UTF-8");
+		System.out.println(s);
 	}
 }
 

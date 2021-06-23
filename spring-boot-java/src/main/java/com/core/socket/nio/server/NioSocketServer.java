@@ -52,6 +52,7 @@ public class NioSocketServer {
         // 注意、服务器通道只能注册SelectionKey.OP_ACCEPT事件
         // 一个Selector可以注册管理多个ServerSocketChannel
         serverChannel.register(selector, SelectionKey.OP_ACCEPT);
+        serverChannel.accept();
 //        serverChannel2.register(selector, SelectionKey.OP_ACCEPT);
 
         try {

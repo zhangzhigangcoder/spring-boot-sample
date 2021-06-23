@@ -1,6 +1,7 @@
 package org.spring.boot.kafka.producer;
 
 import java.util.Properties;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
 import org.apache.kafka.clients.producer.Callback;
@@ -12,7 +13,7 @@ import org.apache.kafka.common.serialization.StringSerializer;
 
 public class OriginalProducer {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ExecutionException, InterruptedException {
         Properties properties = new Properties();
         // bootstrap.servers kafka集群地址 host1:port1,host2:port2 ....
         properties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
@@ -21,13 +22,23 @@ public class OriginalProducer {
         // value.deserializer 消息体序列化方式
         properties.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
 
+        properties.put(ProducerConfig.ACKS_CONFIG, "0");
+
+
+
         KafkaProducer<String, String> producer = new KafkaProducer<>(properties);
 
         // 0 异步发送消息
-        for (int i = 0; i < 1000000000000L; i++) {
+        for (int i = 0; i < 10L; i++) {
             String data = "async :" + i;
             // 发送消息ConsumerOffsetCheckerConsumerOffsetChecker
-            producer.send(new ProducerRecord<>("test", data));
+            producer.send(new ProducerRecord<>("test", data), new Callback() {
+
+                @Override
+                public void onCompletion(RecordMetadata metadata, Exception exception) {
+                    System.out.println("发送成功, data = " + data);
+                }
+            });
         }
 
         // 1 同步发送消息 调用get()阻塞返回结果

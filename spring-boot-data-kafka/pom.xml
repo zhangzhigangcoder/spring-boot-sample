@@ -53,7 +53,14 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter</artifactId>
 		</dependency>
-		
+
+		<!-- https://mvnrepository.com/artifact/org.apache.kafka/kafka -->
+		<dependency>
+			<groupId>org.apache.kafka</groupId>
+			<artifactId>kafka_2.12</artifactId>
+			<version>2.1.1</version>
+		</dependency>
+
 	</dependencies>
 	
 </project>

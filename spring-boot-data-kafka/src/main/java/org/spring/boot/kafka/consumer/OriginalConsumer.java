@@ -1,13 +1,13 @@
 package org.spring.boot.kafka.consumer;
 
-import org.apache.kafka.clients.consumer.ConsumerConfig;
-import org.apache.kafka.clients.consumer.ConsumerRecord;
-import org.apache.kafka.clients.consumer.ConsumerRecords;
+import org.apache.kafka.clients.consumer.*;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
+import org.apache.kafka.common.TopicPartition;
 import org.apache.kafka.common.serialization.StringDeserializer;
 
 import java.time.Duration;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Properties;
 
 public class OriginalConsumer {
@@ -22,23 +22,36 @@ public class OriginalConsumer {
         // value.deserializer 消息体序列化方式
         properties.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
         // group.id 消费组id
-        properties.put(ConsumerConfig.GROUP_ID_CONFIG, "demo-group");
+        properties.put(ConsumerConfig.GROUP_ID_CONFIG, "demo-group516");
         // enable.auto.commit 设置自动提交offset
         properties.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, true);
         // auto.offset.reset
         properties.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
 
         KafkaConsumer<String, String> consumer = new KafkaConsumer<>(properties);
-        String[] topics = new String[]{"test3"};
-        consumer.subscribe(Arrays.asList(topics));
+        String[] topics = new String[]{"test2"};
+        consumer.subscribe(Arrays.asList(topics), new ConsumerRebalanceListener() {
+            @Override
+            public void onPartitionsRevoked(Collection<TopicPartition> partitions) {
+                // 重新分配分区之后和消费者开始消费之前被调用
+            }
 
+            @Override
+            public void onPartitionsAssigned(Collection<TopicPartition> partitions) {
+                // 再均衡之前和消费者停止读取消息之后被调用
+            }
+        });
+        // 手动提交
+//        consumer.commitSync();
+        consumer.u
 
         while (true) {
-            ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(100));
+            ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(1000));
             for (ConsumerRecord<String, String> record : records) {
                 System.out.println(record);
             }
         }
 
     }
+//    FetchSessionHandler
 }
