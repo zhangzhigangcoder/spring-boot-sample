@@ -12,13 +12,14 @@ import java.util.concurrent.*;
  */
 public class CompletableFutureTest {
 
+    private static ExecutorService executor = Executors.newFixedThreadPool(3);
+
 
     public static void main(String[] args) throws Exception {
-        thenComposeTest();
+        test1();
     }
 
-    private static void baseUse() throws InterruptedException {
-        ExecutorService executor = Executors.newFixedThreadPool(3);
+    private static void test1() throws InterruptedException {
 
         // 创建异步执行任务，有返回值
         CompletableFuture<Double> cf = CompletableFuture.supplyAsync(CompletableFutureTest::fetchPrice, executor);
@@ -32,7 +33,6 @@ public class CompletableFutureTest {
         cf.thenAccept((result) -> {
             System.out.println("price: " + result);
         });
-        System.out.println("---11---");
         // 如果执行异常:
         cf.exceptionally((e) -> {
             e.printStackTrace();
@@ -40,47 +40,10 @@ public class CompletableFutureTest {
         });
     }
 
-    private static Double fetchPrice() {
-        try {
-            Thread.sleep(100);
-        } catch (InterruptedException e) {
-        }
-//        if (0.2 < 0.3) {
-//            throw new RuntimeException("fetch price failed!");
-//        }
-        return 5 + Math.random() * 20;
-    }
-
-    private static Double fetchPrice(String code) {
-        System.out.println("fetchPrice: " + code);
-        try {
-            Thread.sleep(100);
-        } catch (InterruptedException e) {
-        }
-        return 5 + Math.random() * 20;
-    }
-
-    /**
-     * 根据证券名称查询证券代码
-     * @param name
-     * @return
-     * @throws InterruptedException
-     */
-    private static String queryCode(String name) {
-        System.out.println("queryCode: " + name);
-        try {
-            Thread.sleep(100);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        return "601857";
-    }
-
     /**
      * 串行执行
      */
     private static void test2() {
-        ExecutorService executor = Executors.newFixedThreadPool(3);
         // 第一个任务
         CompletableFuture<String> cfQuery = CompletableFuture.supplyAsync(() -> {
             return queryCode("中国石油");
@@ -99,8 +62,6 @@ public class CompletableFutureTest {
      * 并行执行
      */
     private static void test3() {
-
-        ExecutorService executor = Executors.newFixedThreadPool(4);
 
         CompletableFuture<String> cfQueryFromSina = CompletableFuture.supplyAsync(() -> {
             return queryCode("中国石油1", "https://finance.sina.com.cn/code/");
@@ -141,10 +102,6 @@ public class CompletableFutureTest {
         }
     }
 
-    private static int expandValue(int num) {
-        return num * 10;
-    }
-
     /**
      * 组合处理
      */
@@ -158,6 +115,10 @@ public class CompletableFutureTest {
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
+    }
+
+    private static int expandValue(int num) {
+        return num * 10;
     }
 
     private static Random random = new Random();
@@ -187,6 +148,43 @@ public class CompletableFutureTest {
         System.out.println("query price from " + code + "-" + url + "...");
         return 5 + Math.random() * 20;
     }
+
+    private static Double fetchPrice() {
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+        }
+        if (0.2 < 0.3) {
+            throw new RuntimeException("fetch price failed!");
+        }
+        return 5 + Math.random() * 20;
+    }
+
+    private static Double fetchPrice(String code) {
+        System.out.println("fetchPrice: " + code);
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+        }
+        return 5 + Math.random() * 20;
+    }
+
+    /**
+     * 根据证券名称查询证券代码
+     * @param name
+     * @return
+     * @throws InterruptedException
+     */
+    private static String queryCode(String name) {
+        System.out.println("queryCode: " + name);
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return "601857";
+    }
+
 
 }
 
