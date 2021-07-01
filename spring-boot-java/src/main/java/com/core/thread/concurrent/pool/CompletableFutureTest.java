@@ -16,10 +16,10 @@ public class CompletableFutureTest {
 
 
     public static void main(String[] args) throws Exception {
-        test1();
+        testThenCompose();
     }
 
-    private static void test1() throws InterruptedException {
+    private static void testBase() {
 
         // 创建异步执行任务，有返回值
         CompletableFuture<Double> cf = CompletableFuture.supplyAsync(CompletableFutureTest::fetchPrice, executor);
@@ -27,7 +27,7 @@ public class CompletableFutureTest {
         // 没有返回值
 //        CompletableFuture<Void> cf = CompletableFuture.runAsync(() -> {
 //            CompletableFutureTest.fetchPrice();
-//        });
+//        }, executor);
 
         // 如果执行成功:
         cf.thenAccept((result) -> {
@@ -36,6 +36,7 @@ public class CompletableFutureTest {
         // 如果执行异常:
         cf.exceptionally((e) -> {
             e.printStackTrace();
+//            return 0.0;
             return null;
         });
     }
@@ -43,15 +44,18 @@ public class CompletableFutureTest {
     /**
      * 串行执行
      */
-    private static void test2() {
+    private static void testSerial() {
         // 第一个任务
         CompletableFuture<String> cfQuery = CompletableFuture.supplyAsync(() -> {
             return queryCode("中国石油");
         }, executor);
+
         // cfQuery成功后继续执行下一个任务
+        // 将前一个计算结果作为该任务请求参数
         CompletableFuture<Double> cfFetch = cfQuery.thenApplyAsync(code -> {
             return fetchPrice(code);
         }, executor);
+
         // cfFetch成功打印结果
         cfFetch.thenAccept(result -> {
             System.out.println("price: " + result);
@@ -61,7 +65,7 @@ public class CompletableFutureTest {
     /**
      * 并行执行
      */
-    private static void test3() {
+    private static void testParallel() {
 
         CompletableFuture<String> cfQueryFromSina = CompletableFuture.supplyAsync(() -> {
             return queryCode("中国石油1", "https://finance.sina.com.cn/code/");
@@ -90,9 +94,13 @@ public class CompletableFutureTest {
         });
     }
 
-    public static void thenComposeTest() {
-        CompletableFuture<Integer> result = CompletableFuture.supplyAsync(CompletableFutureTest::randomInteger)
-                .thenCompose(i -> CompletableFuture.supplyAsync(() -> i * 10));
+    /**
+     * 异步结果流水化
+     */
+    public static void testThenCompose() {
+        CompletableFuture<Integer> cf = CompletableFuture.supplyAsync(CompletableFutureTest::randomInteger);
+        CompletableFuture<Integer> result = cf.thenCompose(i -> CompletableFuture.supplyAsync(() -> i * 10));
+
         try {
             System.out.println(result.get());
         } catch (InterruptedException e) {
@@ -104,8 +112,9 @@ public class CompletableFutureTest {
 
     /**
      * 组合处理
+     * 将两个无关的CompletableFuture组合起来，第二个Completable并不依赖第一个Completable的结果
      */
-    public static void thenCombineTest() {
+    public static void testThenCombine() {
         CompletableFuture<Integer> result = CompletableFuture.supplyAsync(CompletableFutureTest::randomInteger)
                 .thenCombineAsync(CompletableFuture.supplyAsync(CompletableFutureTest::randomInteger), (i, j) -> i * j);
         try {
@@ -115,6 +124,16 @@ public class CompletableFutureTest {
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * 对前面计算结果进行处理，无法返回新值
+     */
+    public static void testWhenComplete() {
+        CompletableFuture<String> cf1 = CompletableFuture.supplyAsync(() -> "hello");
+        CompletableFuture<String> cf2 = cf1.whenComplete((v, e) ->
+                System.out.println(String.format("value:%s, exception:%s", v, e)));
+        System.out.println(cf2.join());
     }
 
     private static int expandValue(int num) {
@@ -154,9 +173,9 @@ public class CompletableFutureTest {
             Thread.sleep(5000);
         } catch (InterruptedException e) {
         }
-        if (0.2 < 0.3) {
-            throw new RuntimeException("fetch price failed!");
-        }
+//        if (0.2 < 0.3) {
+//            throw new RuntimeException("fetch price failed!");
+//        }
         return 5 + Math.random() * 20;
     }
 
@@ -171,6 +190,7 @@ public class CompletableFutureTest {
 
     /**
      * 根据证券名称查询证券代码
+     *
      * @param name
      * @return
      * @throws InterruptedException
@@ -178,7 +198,7 @@ public class CompletableFutureTest {
     private static String queryCode(String name) {
         System.out.println("queryCode: " + name);
         try {
-            Thread.sleep(100);
+            Thread.sleep(5000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
