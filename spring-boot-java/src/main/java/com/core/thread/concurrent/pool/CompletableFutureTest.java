@@ -16,7 +16,7 @@ public class CompletableFutureTest {
 
 
     public static void main(String[] args) throws Exception {
-        testThenCompose();
+        testWhenComplete();
     }
 
     private static void testBase() {
@@ -111,7 +111,7 @@ public class CompletableFutureTest {
     }
 
     /**
-     * 组合处理
+     * 组合结果处理
      * 将两个无关的CompletableFuture组合起来，第二个Completable并不依赖第一个Completable的结果
      */
     public static void testThenCombine() {
@@ -130,8 +130,8 @@ public class CompletableFutureTest {
      * 对前面计算结果进行处理，无法返回新值
      */
     public static void testWhenComplete() {
-        CompletableFuture<String> cf1 = CompletableFuture.supplyAsync(() -> "hello");
-        CompletableFuture<String> cf2 = cf1.whenComplete((v, e) ->
+        CompletableFuture<Integer> cf1 = CompletableFuture.supplyAsync(CompletableFutureTest::randomInteger);
+        CompletableFuture<Integer> cf2 = cf1.whenComplete((v, e) ->
                 System.out.println(String.format("value:%s, exception:%s", v, e)));
         System.out.println(cf2.join());
     }
