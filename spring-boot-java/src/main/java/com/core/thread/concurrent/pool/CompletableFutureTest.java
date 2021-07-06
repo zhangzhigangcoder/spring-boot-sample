@@ -19,7 +19,7 @@ public class CompletableFutureTest {
         testThenRun();
     }
 
-    private static void testBase() {
+    private static void testThenAccept() {
 
         // 创建异步执行任务，有返回值
         CompletableFuture<Double> cf = CompletableFuture.supplyAsync(CompletableFutureTest::fetchPrice, executor);
@@ -84,56 +84,6 @@ public class CompletableFutureTest {
     }
 
     /**
-     * 并行执行
-     * allOf: 所有CompletableFuture执行完，才继续向下执行
-     * anyOf: 任意一个CompletableFuture执行完，才继续向下执行
-     */
-    private static void testAllAndAny() {
-
-        CompletableFuture<String> cfQueryFromSina = CompletableFuture.supplyAsync(() -> {
-            return queryCode("中国石油1", "https://finance.sina.com.cn/code/");
-        }, executor);
-
-        CompletableFuture<String> cfQueryFrom163 = CompletableFuture.supplyAsync(() -> {
-            return queryCode("中国石油2", "https://money.163.com/code");
-        }, executor);
-
-        // 两个任务必须全部执行完，才会触发执行下一个任务
-        CompletableFuture<Void> cfQuery = CompletableFuture.allOf(cfQueryFromSina, cfQueryFrom163);
-
-        CompletableFuture<Double> cfFetchFromSina = cfQuery.thenApplyAsync(code -> {
-            return fetchPrice(null, "https://finance.sina.com/price/");
-        }, executor);
-
-        CompletableFuture<Double> cfFetchFrom163 = cfQuery.thenApplyAsync(code -> {
-            return fetchPrice(null, "https://money.163.com/price/");
-        }, executor);
-
-        // 两个任务中任意一个执行完，都会触发下一个任务执行
-        CompletableFuture<Object> cfFetch = CompletableFuture.anyOf(cfFetchFromSina, cfFetchFrom163);
-
-        cfFetch.thenAccept(result -> {
-            System.out.println("price: " + result);
-        });
-    }
-
-    /**
-     * 异步结果流水化
-     */
-    public static void testThenCompose() {
-        CompletableFuture<Integer> cf = CompletableFuture.supplyAsync(CompletableFutureTest::randomInteger);
-        CompletableFuture<Integer> result = cf.thenCompose(i -> CompletableFuture.supplyAsync(() -> i * 10));
-
-        try {
-            System.out.println(result.get());
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
      * 组合结果处理
      * 将两个无关的CompletableFuture组合起来，第二个Completable并不依赖第一个Completable的结果
      */
@@ -189,6 +139,7 @@ public class CompletableFutureTest {
      * Either为任意一个CompletableFuture执行完成，就会执行
      * applyToEither有返回值
      * acceptEither没有返回值
+     * 超过两个CompletableFuture,用anyOf
      * @throws ExecutionException
      * @throws InterruptedException
      */
@@ -227,8 +178,53 @@ public class CompletableFutureTest {
         System.out.println(cf3.get());
     }
 
-    private static int expandValue(int num) {
-        return num * 10;
+    /**
+     * 并行执行
+     * allOf: 所有CompletableFuture执行完，才继续向下执行
+     * anyOf: 任意一个CompletableFuture执行完，才继续向下执行
+     */
+    private static void testAllAndAny() {
+        CompletableFuture<String> cfQueryFromSina = CompletableFuture.supplyAsync(() -> {
+            return queryCode("中国石油1", "https://finance.sina.com.cn/code/");
+        }, executor);
+
+        CompletableFuture<String> cfQueryFrom163 = CompletableFuture.supplyAsync(() -> {
+            return queryCode("中国石油2", "https://money.163.com/code");
+        }, executor);
+
+        // 两个任务必须全部执行完，才会触发执行下一个任务
+        CompletableFuture<Void> cfQuery = CompletableFuture.allOf(cfQueryFromSina, cfQueryFrom163);
+
+        CompletableFuture<Double> cfFetchFromSina = cfQuery.thenApplyAsync(code -> {
+            return fetchPrice(null, "https://finance.sina.com/price/");
+        }, executor);
+
+        CompletableFuture<Double> cfFetchFrom163 = cfQuery.thenApplyAsync(code -> {
+            return fetchPrice(null, "https://money.163.com/price/");
+        }, executor);
+
+        // 两个任务中任意一个执行完，都会触发下一个任务执行
+        CompletableFuture<Object> cfFetch = CompletableFuture.anyOf(cfFetchFromSina, cfFetchFrom163);
+
+        cfFetch.thenAccept(result -> {
+            System.out.println("price: " + result);
+        });
+    }
+
+    /**
+     * 异步结果流水化
+     */
+    public static void testThenCompose() {
+        CompletableFuture<Integer> cf = CompletableFuture.supplyAsync(CompletableFutureTest::randomInteger);
+        CompletableFuture<Integer> result = cf.thenCompose(i -> CompletableFuture.supplyAsync(() -> i * 10));
+
+        try {
+            System.out.println(result.get());
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
     }
 
     private static Random random = new Random();
