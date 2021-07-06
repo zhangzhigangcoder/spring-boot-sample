@@ -1,14 +1,14 @@
 package com.core.thread.concurrent.pool;
 
-import javax.swing.plaf.synth.SynthOptionPaneUI;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 import java.util.Random;
-import java.util.concurrent.*;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * @author zhangzhigang
+ * https://www.jianshu.com/p/547d2d7761db
  */
 public class CompletableFutureTest {
 
@@ -16,7 +16,7 @@ public class CompletableFutureTest {
 
 
     public static void main(String[] args) throws Exception {
-        testWhenComplete();
+        testApplyToEither();
     }
 
     private static void testBase() {
@@ -128,12 +128,68 @@ public class CompletableFutureTest {
 
     /**
      * 对前面计算结果进行处理，无法返回新值
+     * cf1和cf2的结果一致
      */
     public static void testWhenComplete() {
         CompletableFuture<Integer> cf1 = CompletableFuture.supplyAsync(CompletableFutureTest::randomInteger);
         CompletableFuture<Integer> cf2 = cf1.whenComplete((v, e) ->
                 System.out.println(String.format("value:%s, exception:%s", v, e)));
+        System.out.println(cf1.join());
         System.out.println(cf2.join());
+    }
+
+    /**
+     * 与whenComplete都是对结果进行处理，区别在于：
+     * whenComplete中cf1和cf2中结果一样
+     * handleAsync中cf1和cf2中的结果可能不一致
+     */
+    public static void testHandle() {
+        CompletableFuture<Integer> cf1 = CompletableFuture.supplyAsync(CompletableFutureTest::randomInteger);
+        CompletableFuture<Integer> cf2 = cf1.handleAsync((v, e) -> v + 1);
+        System.out.println(cf1.join());
+        System.out.println(cf2.join());
+    }
+
+    /**
+     * 用来组合两个CompletableFuture,其中一个CompletableFuture等待另一个CompletableFuture的结果
+     *
+     * @throws ExecutionException
+     * @throws InterruptedException
+     */
+    public static void testThenAcceptBoth() throws ExecutionException, InterruptedException {
+        CompletableFuture<String> cf1 = CompletableFuture.supplyAsync(() -> "hello world");
+        CompletableFuture<Void> cf2 = cf1.thenAcceptBoth(CompletableFuture.completedFuture("compose"),
+                (x, y) -> System.out.println(x + " " + y)); // hello world compose
+    }
+
+    public static void testApplyToEither() throws ExecutionException, InterruptedException {
+        CompletableFuture<Integer> cf1 = CompletableFuture.supplyAsync(() -> {
+            try {
+                Thread.sleep(1000 + random.nextInt(1000));
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            return 100;
+        });
+
+        CompletableFuture<Integer> cf2 = CompletableFuture.supplyAsync(() -> {
+            try {
+                Thread.sleep(1000 + random.nextInt(1000));
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            return 200;
+        });
+
+        // 两个中任意一个计算完成,那么触发Runnable的执行
+        CompletableFuture<String> cf3 = cf2.applyToEither(cf1, i -> i.toString());
+
+        // 两个都计算完成,那么触发Runnable的执行
+        CompletableFuture f1 = cf2.acceptEither(cf1, (e) -> {
+            System.out.println(e);
+        });
+
+        System.out.println(cf3.get());
     }
 
     private static int expandValue(int num) {
