@@ -16,7 +16,7 @@ public class CompletableFutureTest {
 
 
     public static void main(String[] args) throws Exception {
-        testApplyToEither();
+        testThenRun();
     }
 
     private static void testBase() {
@@ -44,7 +44,7 @@ public class CompletableFutureTest {
     /**
      * 串行执行
      */
-    private static void testSerial() {
+    private static void testThenApply() {
         // 第一个任务
         CompletableFuture<String> cfQuery = CompletableFuture.supplyAsync(() -> {
             return queryCode("中国石油");
@@ -63,9 +63,32 @@ public class CompletableFutureTest {
     }
 
     /**
-     * 并行执行
+     * 串行执行，和thenApply类似，前者有返回值，后者没有返回值
      */
-    private static void testParallel() {
+    private static void testThenRun() {
+        // 第一个任务
+        CompletableFuture<String> cfQuery = CompletableFuture.supplyAsync(() -> {
+            return queryCode("中国石油");
+        }, executor);
+
+        // cfQuery成功后继续执行下一个任务
+        // 将前一个计算结果作为该任务请求参数
+        CompletableFuture<Void> cfFetch = cfQuery.thenRunAsync(() -> {
+            System.out.println("---then Run---");
+        }, executor);
+
+        // cfFetch成功打印结果
+        cfQuery.thenAccept(result -> {
+            System.out.println("price: " + result);
+        });
+    }
+
+    /**
+     * 并行执行
+     * allOf: 所有CompletableFuture执行完，才继续向下执行
+     * anyOf: 任意一个CompletableFuture执行完，才继续向下执行
+     */
+    private static void testAllAndAny() {
 
         CompletableFuture<String> cfQueryFromSina = CompletableFuture.supplyAsync(() -> {
             return queryCode("中国石油1", "https://finance.sina.com.cn/code/");
@@ -156,12 +179,19 @@ public class CompletableFutureTest {
      * @throws ExecutionException
      * @throws InterruptedException
      */
-    public static void testThenAcceptBoth() throws ExecutionException, InterruptedException {
+    public static void testThenAcceptBoth() {
         CompletableFuture<String> cf1 = CompletableFuture.supplyAsync(() -> "hello world");
         CompletableFuture<Void> cf2 = cf1.thenAcceptBoth(CompletableFuture.completedFuture("compose"),
                 (x, y) -> System.out.println(x + " " + y)); // hello world compose
     }
 
+    /**
+     * Either为任意一个CompletableFuture执行完成，就会执行
+     * applyToEither有返回值
+     * acceptEither没有返回值
+     * @throws ExecutionException
+     * @throws InterruptedException
+     */
     public static void testApplyToEither() throws ExecutionException, InterruptedException {
         CompletableFuture<Integer> cf1 = CompletableFuture.supplyAsync(() -> {
             try {
@@ -182,11 +212,16 @@ public class CompletableFutureTest {
         });
 
         // 两个中任意一个计算完成,那么触发Runnable的执行
-        CompletableFuture<String> cf3 = cf2.applyToEither(cf1, i -> i.toString());
+        CompletableFuture<String> cf3 = cf2.applyToEither(cf1, i -> {
+            // i值为cf1和cf2中先执行完成的结果
+            System.out.println("==" + i);
+            return i.toString();
+        });
 
-        // 两个都计算完成,那么触发Runnable的执行
-        CompletableFuture f1 = cf2.acceptEither(cf1, (e) -> {
-            System.out.println(e);
+        // 两个任意一个计算完成,那么触发Runnable的执行
+        CompletableFuture<Void> f1 = cf2.acceptEither(cf1, (result) -> {
+            // result值为cf1和cf2中先执行完成的结果
+            System.out.println("--" + result);
         });
 
         System.out.println(cf3.get());
