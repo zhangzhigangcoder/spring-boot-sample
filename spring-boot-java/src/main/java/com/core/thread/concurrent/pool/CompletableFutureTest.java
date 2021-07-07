@@ -1,5 +1,7 @@
 package com.core.thread.concurrent.pool;
 
+import lombok.Data;
+
 import java.util.Random;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
@@ -16,13 +18,13 @@ public class CompletableFutureTest {
 
 
     public static void main(String[] args) throws Exception {
-        testThenRun();
+        testThenAccept();
     }
 
     private static void testThenAccept() {
 
         // 创建异步执行任务，有返回值
-        CompletableFuture<Double> cf = CompletableFuture.supplyAsync(CompletableFutureTest::fetchPrice, executor);
+        CompletableFuture<CFEntity> cf = CompletableFuture.supplyAsync(CompletableFutureTest::buildEntity, executor);
 
         // 没有返回值
 //        CompletableFuture<Void> cf = CompletableFuture.runAsync(() -> {
@@ -30,15 +32,17 @@ public class CompletableFutureTest {
 //        }, executor);
 
         // 如果执行成功:
-        cf.thenAccept((result) -> {
+        CompletableFuture<Void> cf2 = cf.thenAccept((result) -> {
+            result.setName("李四");
             System.out.println("price: " + result);
         });
         // 如果执行异常:
-        cf.exceptionally((e) -> {
+        CompletableFuture<CFEntity> cf3 = cf.exceptionally((e) -> {
             e.printStackTrace();
 //            return 0.0;
             return null;
         });
+        System.out.println(cf.join());
     }
 
     /**
@@ -255,9 +259,11 @@ public class CompletableFutureTest {
         return 5 + Math.random() * 20;
     }
 
+
+
     private static Double fetchPrice() {
         try {
-            Thread.sleep(5000);
+            Thread.sleep(500000);
         } catch (InterruptedException e) {
         }
 //        if (0.2 < 0.3) {
@@ -292,6 +298,17 @@ public class CompletableFutureTest {
         return "601857";
     }
 
+    private static CFEntity buildEntity() {
+        return new CFEntity("张三");
+    }
+
+    @Data
+    static class CFEntity {
+        private String name;
+        public CFEntity(String name) {
+            this.name = name;
+        }
+    }
 
 }
 
