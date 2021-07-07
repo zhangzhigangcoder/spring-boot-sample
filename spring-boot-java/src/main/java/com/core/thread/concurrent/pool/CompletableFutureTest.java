@@ -112,6 +112,22 @@ public class CompletableFutureTest {
     }
 
     /**
+     * 串行异步执行
+     */
+    public static void testThenCompose() {
+        CompletableFuture<Integer> cf = CompletableFuture.supplyAsync(CompletableFutureTest::randomInteger);
+        CompletableFuture<Integer> result = cf.thenCompose(i -> CompletableFuture.supplyAsync(() -> i * 10));
+
+        try {
+            System.out.println(result.get());
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
      * 组合结果处理
      * 将两个无关的CompletableFuture组合起来，第二个Completable并不依赖第一个Completable的结果
      * i为第一个cf执行结果
@@ -216,22 +232,6 @@ public class CompletableFutureTest {
         cfFetch.thenAccept(result -> {
             System.out.println("price: " + result);
         });
-    }
-
-    /**
-     * 异步结果流水化
-     */
-    public static void testThenCompose() {
-        CompletableFuture<Integer> cf = CompletableFuture.supplyAsync(CompletableFutureTest::randomInteger);
-        CompletableFuture<Integer> result = cf.thenCompose(i -> CompletableFuture.supplyAsync(() -> i * 10));
-
-        try {
-            System.out.println(result.get());
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
     }
 
     private static Random random = new Random();
