@@ -46,6 +46,30 @@ public class CompletableFutureTest {
     }
 
     /**
+     * 对前面计算结果进行处理，无法返回新值
+     * cf1和cf2的结果一致
+     */
+    public static void testWhenComplete() {
+        CompletableFuture<Integer> cf1 = CompletableFuture.supplyAsync(CompletableFutureTest::randomInteger);
+        CompletableFuture<Integer> cf2 = cf1.whenComplete((v, e) ->
+                System.out.println(String.format("value:%s, exception:%s", v, e)));
+        System.out.println(cf1.join());
+        System.out.println(cf2.join());
+    }
+
+    /**
+     * 与whenComplete都是对结果进行处理，区别在于：
+     * whenComplete中cf1和cf2中结果一样
+     * handleAsync中cf1和cf2中的结果可能不一致
+     */
+    public static void testHandle() {
+        CompletableFuture<Integer> cf1 = CompletableFuture.supplyAsync(CompletableFutureTest::randomInteger);
+        CompletableFuture<Integer> cf2 = cf1.handleAsync((v, e) -> v + 1);
+        System.out.println(cf1.join());
+        System.out.println(cf2.join());
+    }
+
+    /**
      * 串行执行
      */
     private static void testThenApply() {
@@ -90,6 +114,8 @@ public class CompletableFutureTest {
     /**
      * 组合结果处理
      * 将两个无关的CompletableFuture组合起来，第二个Completable并不依赖第一个Completable的结果
+     * i为第一个cf执行结果
+     * j为第二个cf执行结果
      */
     public static void testThenCombine() {
         CompletableFuture<Integer> result = CompletableFuture.supplyAsync(CompletableFutureTest::randomInteger)
@@ -104,30 +130,7 @@ public class CompletableFutureTest {
     }
 
     /**
-     * 对前面计算结果进行处理，无法返回新值
-     * cf1和cf2的结果一致
-     */
-    public static void testWhenComplete() {
-        CompletableFuture<Integer> cf1 = CompletableFuture.supplyAsync(CompletableFutureTest::randomInteger);
-        CompletableFuture<Integer> cf2 = cf1.whenComplete((v, e) ->
-                System.out.println(String.format("value:%s, exception:%s", v, e)));
-        System.out.println(cf1.join());
-        System.out.println(cf2.join());
-    }
-
-    /**
-     * 与whenComplete都是对结果进行处理，区别在于：
-     * whenComplete中cf1和cf2中结果一样
-     * handleAsync中cf1和cf2中的结果可能不一致
-     */
-    public static void testHandle() {
-        CompletableFuture<Integer> cf1 = CompletableFuture.supplyAsync(CompletableFutureTest::randomInteger);
-        CompletableFuture<Integer> cf2 = cf1.handleAsync((v, e) -> v + 1);
-        System.out.println(cf1.join());
-        System.out.println(cf2.join());
-    }
-
-    /**
+     * 和thenCombineAsync类型，区别在于一个有返回值，一个配置
      * 用来组合两个CompletableFuture,其中一个CompletableFuture等待另一个CompletableFuture的结果
      *
      * @throws ExecutionException
