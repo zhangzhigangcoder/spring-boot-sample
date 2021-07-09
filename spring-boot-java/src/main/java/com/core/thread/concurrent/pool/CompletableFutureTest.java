@@ -18,7 +18,7 @@ public class CompletableFutureTest {
 
 
     public static void main(String[] args) throws Exception {
-        testThenAccept();
+        testHandle();
     }
 
     private static void testThenAccept() {
@@ -39,7 +39,6 @@ public class CompletableFutureTest {
         // 如果执行异常:
         CompletableFuture<CFEntity> cf3 = cf.exceptionally((e) -> {
             e.printStackTrace();
-//            return 0.0;
             return null;
         });
         System.out.println(cf.join());
@@ -50,7 +49,7 @@ public class CompletableFutureTest {
      * cf1和cf2的结果一致
      */
     public static void testWhenComplete() {
-        CompletableFuture<Integer> cf1 = CompletableFuture.supplyAsync(CompletableFutureTest::randomInteger);
+        CompletableFuture<Integer> cf1 = CompletableFuture.supplyAsync(CompletableFutureTest::randomInteger, executor);
         CompletableFuture<Integer> cf2 = cf1.whenComplete((v, e) ->
                 System.out.println(String.format("value:%s, exception:%s", v, e)));
         System.out.println(cf1.join());
@@ -63,7 +62,7 @@ public class CompletableFutureTest {
      * handleAsync中cf1和cf2中的结果可能不一致
      */
     public static void testHandle() {
-        CompletableFuture<Integer> cf1 = CompletableFuture.supplyAsync(CompletableFutureTest::randomInteger);
+        CompletableFuture<Integer> cf1 = CompletableFuture.supplyAsync(CompletableFutureTest::randomInteger, executor);
         CompletableFuture<Integer> cf2 = cf1.handleAsync((v, e) -> v + 1);
         System.out.println(cf1.join());
         System.out.println(cf2.join());
@@ -112,7 +111,7 @@ public class CompletableFutureTest {
     }
 
     /**
-     * 串行异步执行
+     * 串行异步执行,和thenApplyAsync类似
      */
     public static void testThenCompose() {
         CompletableFuture<Integer> cf = CompletableFuture.supplyAsync(CompletableFutureTest::randomInteger);
@@ -239,6 +238,7 @@ public class CompletableFutureTest {
     private static Integer randomInteger() {
         int i = random.nextInt(100);
         System.out.println("i: " + i);
+//        int i1 = 1 / 0;
         return i;
     }
 
