@@ -42,8 +42,7 @@ public class OriginalConsumer {
             }
         });
         // 手动提交
-//        consumer.commitSync();
-        consumer.u
+        consumer.commitSync();
 
         while (true) {
             ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(1000));
