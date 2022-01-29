@@ -16,10 +16,6 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 
-	<properties>
-		<org.mapstruct.version>1.4.1.Final</org.mapstruct.version>
-	</properties>
-
 	<dependencies>
 		<!-- javax validation start -->
 		<dependency>
@@ -148,13 +144,6 @@
 			<artifactId>hutool-all</artifactId>
 			<version>5.4.7</version>
 		</dependency>
-
-		<dependency>
-			<groupId>org.mapstruct</groupId>
-			<artifactId>mapstruct</artifactId>
-			<version>${org.mapstruct.version}</version>
-		</dependency>
-
 	</dependencies>
 
 <!--	<build>-->
