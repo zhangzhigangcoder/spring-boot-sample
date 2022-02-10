@@ -7,7 +7,7 @@ public class DoubleCheckThreadSafeSingleton {
 	
 	private DoubleCheckThreadSafeSingleton() {}
 	
-	public static synchronized DoubleCheckThreadSafeSingleton getInstance() {
+	public static DoubleCheckThreadSafeSingleton getInstance() {
 		if (null == instance) {
 			synchronized (DoubleCheckThreadSafeSingleton.class) {
 				if (null == instance) {

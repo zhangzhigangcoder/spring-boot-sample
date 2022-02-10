@@ -2,7 +2,7 @@ package com.design.creational.singleton;
 
 public class StaticBlockSingleton {
 
-	private static StaticBlockSingleton instance;
+	private static final StaticBlockSingleton instance;
 	
 	private StaticBlockSingleton() {}
 	
