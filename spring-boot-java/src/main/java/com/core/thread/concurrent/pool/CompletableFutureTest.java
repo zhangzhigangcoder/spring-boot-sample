@@ -2,11 +2,14 @@ package com.core.thread.concurrent.pool;
 
 import lombok.Data;
 
-import java.util.Random;
+import java.time.Duration;
+import java.time.Instant;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.stream.Collectors;
 
 /**
  * @author zhangzhigang
@@ -18,7 +21,9 @@ public class CompletableFutureTest {
 
 
     public static void main(String[] args) throws Exception {
-        testHandle();
+//        testAllAndAny();
+        Thread.sleep(100000000000L);
+        System.out.println("-----");
     }
 
     private static void testThenAccept() {
@@ -205,33 +210,72 @@ public class CompletableFutureTest {
      * allOf: 所有CompletableFuture执行完，才继续向下执行
      * anyOf: 任意一个CompletableFuture执行完，才继续向下执行
      */
-    private static void testAllAndAny() {
-        CompletableFuture<String> cfQueryFromSina = CompletableFuture.supplyAsync(() -> {
-            return queryCode("中国石油1", "https://finance.sina.com.cn/code/");
+    private static void testAllAndAny() throws ExecutionException, InterruptedException {
+        CompletableFuture<Void> cfQueryFromSina = CompletableFuture.runAsync(() -> {
+//            return queryCode("中国石油1", "https://finance.sina.com.cn/code/");
+            new Scanner(System.in).nextLine();
+            System.out.println("-----11111111111");
         }, executor);
 
-        CompletableFuture<String> cfQueryFrom163 = CompletableFuture.supplyAsync(() -> {
-            return queryCode("中国石油2", "https://money.163.com/code");
+        CompletableFuture<Void> cfQueryFrom163 = CompletableFuture.runAsync(() -> {
+//            return queryCode("中国石油2", "https://money.163.com/code");
+            System.out.println("-----22222222");
         }, executor);
+
+        List<CompletableFuture<Void>> completableFutures = Arrays.asList(cfQueryFromSina, cfQueryFrom163);
 
         // 两个任务必须全部执行完，才会触发执行下一个任务
-        CompletableFuture<Void> cfQuery = CompletableFuture.allOf(cfQueryFromSina, cfQueryFrom163);
+        CompletableFuture<Void> cfQuery = CompletableFuture.allOf(completableFutures.toArray(new CompletableFuture[0]));
 
-        CompletableFuture<Double> cfFetchFromSina = cfQuery.thenApplyAsync(code -> {
-            return fetchPrice(null, "https://finance.sina.com/price/");
-        }, executor);
+//        cfQuery.join();
+//        CompletableFuture<List<String>> result = cfQuery.thenApply(v -> completableFutures.stream()
+//                .map(CompletableFuture::join)
+//                .collect(Collectors.toList())
+//        );
+        System.out.println(cfQuery.get());
+        System.out.println("-----------------");
+        executor.shutdownNow();
 
-        CompletableFuture<Double> cfFetchFrom163 = cfQuery.thenApplyAsync(code -> {
-            return fetchPrice(null, "https://money.163.com/price/");
-        }, executor);
+//        CompletableFuture<Double> cfFetchFromSina = cfQuery.thenApplyAsync(code -> {
+//            return fetchPrice(null, "https://finance.sina.com/price/");
+//        }, executor);
+//
+//        CompletableFuture<Double> cfFetchFrom163 = cfQuery.thenApplyAsync(code -> {
+//            return fetchPrice(null, "https://money.163.com/price/");
+//        }, executor);
+//
+//        // 两个任务中任意一个执行完，都会触发下一个任务执行
+//        CompletableFuture<Object> cfFetch = CompletableFuture.anyOf(cfFetchFromSina, cfFetchFrom163);
 
-        // 两个任务中任意一个执行完，都会触发下一个任务执行
-        CompletableFuture<Object> cfFetch = CompletableFuture.anyOf(cfFetchFromSina, cfFetchFrom163);
-
-        cfFetch.thenAccept(result -> {
-            System.out.println("price: " + result);
-        });
+//        cfFetch.thenAccept(result -> {
+//            System.out.println("price: " + result);
+//        });
     }
+
+//    public void testCompletableFutureForAll() {
+//        List<CompletableFuture<List<Integer>>> completableFutureList = new ArrayList<>(4);
+//        Instant startTime = Instant.now();
+//        for (int i = 1; i <= 30; i += 10) {
+//            CompletableFuture<List<Integer>> integerList = this.getIntegerList(i, 10);
+//            completableFutureList.add(integerList);
+//        }
+//        CompletableFuture<List<List<Integer>>> sequence = this.sequence(completableFutureList);
+//        CompletableFuture<List<Integer>> listCompletableFuture = sequence.thenApply(lists -> lists.stream().flatMap(Collection::stream).collect(Collectors.toList()));
+//        List<Integer> join = listCompletableFuture
+//                .join();
+//        System.out.println(join);
+//        Instant endTime = Instant.now();
+//
+//        System.out.println(Duration.between(startTime, endTime).getSeconds());
+//    }
+//
+//    public <T> CompletableFuture<List<T>> sequence(Collection<CompletableFuture<T>> futureList) {
+//        return CompletableFuture.allOf(futureList.toArray(new CompletableFuture<?>[0]))
+//                .thenApply(v -> futureList.stream()
+//                        .map(CompletableFuture::join)
+//                        .collect(Collectors.toList())
+//                );
+//    }
 
     private static Random random = new Random();
 
@@ -244,7 +288,9 @@ public class CompletableFutureTest {
 
     private static String queryCode(String name, String url) {
         try {
+            long start = System.currentTimeMillis();
             Thread.sleep((long) (Math.random() * 1000));
+            System.out.println((System.currentTimeMillis() - start) / 1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
