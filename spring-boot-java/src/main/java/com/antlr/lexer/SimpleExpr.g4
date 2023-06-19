@@ -7,8 +7,7 @@ stat: expr ';'
     | ID '=' expr ';'
     | 'if' expr ';'
     ;
-;
-]'
+
 expr: expr ('*' | '/') expr
     | expr ('+' | '-') expr
     | ID
