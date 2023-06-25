@@ -18,7 +18,9 @@ ID: (LETTER | '_') (LETTER | DIGIT | '_')* ;
 
 INT: '0' | ([1-9] [0-9]*);
 
+// skip跳过
 WS: [ \t\r\n]+ -> skip;
+SL_COMMENT: '//' .* '\n' -> skip;
 
 fragment LETTER: [a-zA-Z];
 fragment DIGIT: [0-9];
